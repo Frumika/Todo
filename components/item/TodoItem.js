@@ -2,11 +2,13 @@
 
 
 import {Component} from "../../Component.js";
-import {Button} from "../../ui/button/Button";
+import {Button} from "../../ui/button/Button.js";
+import {Checkbox} from "../../ui/checkbox/Checkbox.js";
 
 export class TodoItem extends Component {
     #title;
     #description;
+
     #isCompleted = false;
 
     #onDelete = null;
@@ -20,52 +22,57 @@ export class TodoItem extends Component {
         this.#onEdit = onEdit;
     }
 
+    setTitle(title){
+        this.#title = title;
+        return this;
+    }
+
+    setDescription(description){
+        this.#description = description;
+        return this;
+    }
 
     render() {
         const item = document.createElement("div");
-        item.className = "main__container-item";
+        item.className = "item-container";
 
+        const checkbox = new Checkbox()
+            .setIcon("../../assets/check.svg")
+            .onClick(() => console.log("checked"))
+            .render();
 
-        const checkbox = document.createElement("img");
-        checkbox.className = "checkbox";
-        checkbox.src = this.#isCompleted
-            ? "assets/check-filled.svg"
-            : "assets/check.svg";
-
-        checkbox.addEventListener("click", () => {
-            this.#toggleCompleted();
-        });
-
-        const textContainer = document.createElement("div");
-        textContainer.className = "item__text";
-
-        const title = document.createElement("h2");
-        title.className = "item__text-header";
-        title.textContent = this.#title;
-
-        const description = document.createElement("p");
-        description.className = "item__text-main";
-        description.textContent = this.#description;
-
-        if (this.#isCompleted) {
-            title.style.textDecoration = "line-through";
-            description.style.textDecoration = "line-through";
-            description.style.color = "gray";
-        }
-
-        textContainer.append(title, description);
+        const textContainer = this.#getTextContainer();
 
         const edit = new Button()
             .setIcon("../../assets/edit.svg")
             .onClick(() => this.#onEdit())
+            .render();
 
         const del = new Button()
             .setIcon("../../assets/delete.svg")
             .onClick(() => this.#onDelete())
+            .render();
 
         item.append(checkbox, textContainer, edit, del);
 
         return item;
+    }
+
+    #getTextContainer() {
+        const textContainer = document.createElement("div");
+        textContainer.className = "text-container";
+
+        const title = document.createElement("h2");
+        title.className = "text-container__title";
+        title.textContent = this.#title;
+
+        const description = document.createElement("p");
+        description.className = "text-container__description";
+        description.textContent = this.#description;
+
+        textContainer.append(title, description);
+
+        return textContainer;
     }
 
     #toggleCompleted() {

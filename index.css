@@ -2,6 +2,7 @@
 @import "ui/logo/logo.css";
 @import "components/header/header.css";
 @import "ui/checkbox/checkbox.css";
+@import "components/item/todoItem.css";
 
 
 :root {
@@ -33,36 +34,6 @@
     padding: 10px 20px;
     gap: 5px;
 
-}
-
-.main__container-item {
-    border-radius: 15px;
-    border: 2px solid var(--contrast-color);
-
-    display: flex;
-    align-items: center;
-
-    padding: 5px;
-    gap: 10px;
-
-    max-width: 700px;
-}
-
-.checkbox {
-    flex-shrink: 0;
-
-    width: 28px;
-    height: 28px;
-
-    border: 2px solid black;
-    border-radius: 50px;
-
-    content-visibility: hidden;
-    cursor: pointer;
-}
-
-.checkbox:hover {
-    content-visibility: visible;
 }
 
 .item__text {
