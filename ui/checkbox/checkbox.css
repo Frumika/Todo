@@ -1,0 +1,16 @@
+.checkbox {
+    flex-shrink: 0;
+
+    width: 28px;
+    height: 28px;
+
+    border: 2px solid black;
+    border-radius: 50px;
+
+    content-visibility: hidden;
+    cursor: pointer;
+}
+
+.checkbox:hover {
+    content-visibility: visible;
+}

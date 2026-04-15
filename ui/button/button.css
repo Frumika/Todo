@@ -1,0 +1,28 @@
+.button {
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 5px;
+    gap: 10px;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+    user-select: none;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.button__img{
+    width: 28px;
+    height: 28px;
+}
+
+.button__text{
+    font-size: 20px;
+    font-weight: 600;
+}

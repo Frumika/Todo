@@ -8,22 +8,46 @@
 
     <title>My-Todo</title>
 
-    <link rel="stylesheet" href="styles/index.css"/>
+    <link rel="stylesheet" href="index.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<header class="header">
-    <div class="header__container">
+<div id="app">
+</div>
 
-        <h1 class="header__container-logo">My-Todo</h1>
+<main class="main">
 
-        <div class="header__container-button">
-            <img src="./assets/add.svg" alt="add">
-            <h2>Добавить</h2>
+    <div class="main__container">
+
+        <div class="main__container-item">
+            <img class="checkbox" src="assets/check.svg" alt="Выполнено"/>
+
+            <div class="item__text">
+                <h2 class="item__text-header">Заголовок записки</h2>
+                <p class="item__text-main">Текст записки, который должен быть отображен на экране</p>
+            </div>
+
+            <img class="item__edit" src="assets/edit.svg" alt="Редактировать"/>
+            <img class="item__delete" src="assets/delete.svg" alt="Удалить"/>
         </div>
+
+        <div class="main__container-item">
+            <img class="checkbox" src="assets/check.svg" alt="Выполнено"/>
+
+            <div class="item__text">
+                <h2 class="item__text-header">Заголовок записки</h2>
+                <p class="item__text-main">Текст записки, который должен быть отображен на экране </p>
+            </div>
+
+            <img class="item__edit" src="assets/edit.svg" alt="Редактировать"/>
+            <img class="item__delete" src="assets/delete.svg" alt="Удалить"/>
+        </div>
+
     </div>
-</header>
+</main>
+
+<script type="module" src="app.js"></script>
 
 </body>
 </html>
