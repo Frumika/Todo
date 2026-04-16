@@ -3,11 +3,12 @@
 import {Component} from "../../Component.js";
 
 export class Checkbox extends Component {
+
     state = {
         iconSrc: null,
         onClick: null,
+        active: false,
     };
-
 
     setIcon(src) {
         return this.setState({iconSrc: src});
@@ -17,10 +18,28 @@ export class Checkbox extends Component {
         return this.setState({onClick: callback});
     }
 
+    isActive(isActive) {
+        return this.setState({active: isActive});
+    }
+
     render() {
-        const checkbox = document.createElement('img');
+
+        let checkbox;
+        if(this.state.iconSrc){
+            checkbox = document.createElement('img');
+            checkbox.src = this.state.iconSrc;
+        }
+        else{
+            checkbox = document.createElement('div');
+        }
+
         checkbox.className = "checkbox";
-        checkbox.src = this.state.iconSrc;
+
+        if (this.state.active) {
+            checkbox.style.backgroundColor = "lightgreen";
+        } else {
+            checkbox.style.backgroundColor = "transparent";
+        }
 
         this.#addListener(checkbox);
 

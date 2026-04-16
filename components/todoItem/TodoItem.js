@@ -11,8 +11,13 @@ export class TodoItem extends Component {
     #descriptionInput = null;
 
     #checkbox = new Checkbox()
-        .setIcon("../../assets/check.svg")
-        .onClick(() => console.log("checked"));
+        .onClick(() => {
+            const isComplete = this.state.mode === "complete";
+            this.setState({
+                mode: this.state.mode === "complete" ? "read" : "complete"
+            });
+        });
+
 
     #editButton = new Button()
         .setIcon("../../assets/edit.svg")
@@ -59,7 +64,7 @@ export class TodoItem extends Component {
         if (this.state.mode === "edit") {
             this.#renderEditMode(container);
         } else {
-            this.#renderReadMode(container);
+            this.#renderViewMode(container);
         }
 
         return container;
@@ -89,24 +94,30 @@ export class TodoItem extends Component {
         this.#deleteButton.mount(container);
     }
 
-    #renderReadMode(container) {
-        this.#checkbox.mount(container);
+    #renderViewMode(container) {
+        const isComplete = this.state.mode === "complete";
+
+        this.#checkbox.isActive(isComplete).mount(container);
 
         const textContainer = document.createElement("div");
         textContainer.className = "text-container";
 
         const title = document.createElement("h2");
         title.className = "text-container__title";
+        if (isComplete) title.classList.add("text-container__through");
+
         title.textContent = this.state.title;
 
         const description = document.createElement("p");
         description.className = "text-container__description";
+        if (isComplete) description.classList.add("text-container__through");
+
         description.textContent = this.state.description;
 
         textContainer.append(title, description);
         container.append(textContainer);
 
-        this.#editButton.mount(container);
+        if (!isComplete) this.#editButton.mount(container);
         this.#deleteButton.mount(container);
     }
 }
