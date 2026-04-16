@@ -4,58 +4,56 @@
 import {Component} from "../../Component.js";
 
 export class Button extends Component {
-    #iconSrc = undefined;
-    #text = undefined;
-    #onClick = null;
 
-    #hasBorder = false;
-    #borderWidth = undefined;
-    #borderStyle = undefined;
-    #borderColor = undefined;
+    state = {
+        iconSrc: null,
+        text: null,
+        onClick: null,
+
+        hasBorder: false,
+        borderWidth: null,
+        borderStyle: null,
+        borderColor: null,
+    };
 
     setIcon(src) {
-        this.#iconSrc = src;
-        return this;
+        return this.setState({iconSrc: src});
     }
 
     setText(text) {
-        this.#text = text;
-        return this;
+        return this.setState({text});
     }
 
     setBorder({width, style, color} = {}) {
-        this.#hasBorder = true;
-
-        if (width) this.#borderWidth = width;
-        if (style) this.#borderStyle = style;
-        if (color) this.#borderColor = color;
-
-        return this;
+        return this.setState({
+            hasBorder: true,
+            borderWidth: width,
+            borderStyle: style,
+            borderColor: color,
+        });
     }
 
     onClick(callback) {
-        this.#onClick = callback;
-        return this;
+        return this.setState({onClick: callback});
     }
 
     render() {
         const button = document.createElement('div');
         button.className = "button";
 
-
-        if (this.#iconSrc) {
+        if (this.state.iconSrc) {
             const icon = document.createElement('img');
             icon.className = "button__img";
-            icon.src = this.#iconSrc;
-            icon.alt = this.#text;
+            icon.src = this.state.iconSrc;
+            icon.alt = this.state.text;
 
             button.append(icon);
         }
 
-        if (this.#text) {
+        if (this.state.text) {
             const text = document.createElement('p');
             text.className = "button__text";
-            text.textContent = this.#text;
+            text.textContent = this.state.text;
 
             button.append(text);
         }
@@ -67,18 +65,18 @@ export class Button extends Component {
     }
 
     #addListener(button) {
-        if (this.#onClick) {
+        if (this.state.onClick) {
             button.addEventListener('click', (event) => {
-                this.#onClick(event);
+                this.state.onClick(event);
             });
         }
     }
 
     #applyStyle(button) {
-        if (this.#hasBorder) {
-            button.style.borderWidth = this.#borderWidth;
-            button.style.borderStyle = this.#borderStyle;
-            button.style.borderColor = this.#borderColor;
+        if (this.state.hasBorder) {
+            button.style.borderWidth = this.state.borderWidth;
+            button.style.borderStyle = this.state.borderStyle;
+            button.style.borderColor = this.state.borderColor;
         }
     }
 }

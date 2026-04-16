@@ -3,24 +3,35 @@
 import {Component} from "../../Component.js";
 
 export class Checkbox extends Component {
-    #iconSrc = undefined;
-    #onClick = null;
+    state = {
+        iconSrc: null,
+        onClick: null,
+    };
+
 
     setIcon(src) {
-        this.#iconSrc = src;
-        return this;
+        return this.setState({iconSrc: src});
     }
 
     onClick(callback) {
-        this.#onClick = callback;
-        return this;
+        return this.setState({onClick: callback});
     }
 
     render() {
         const checkbox = document.createElement('img');
         checkbox.className = "checkbox";
-        checkbox.src = this.#iconSrc;
+        checkbox.src = this.state.iconSrc;
+
+        this.#addListener(checkbox);
 
         return checkbox;
+    }
+
+    #addListener(checkbox) {
+        if (this.state.onClick) {
+            checkbox.addEventListener('click', (event) => {
+                this.state.onClick(event);
+            });
+        }
     }
 }

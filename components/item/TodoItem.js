@@ -5,55 +5,43 @@ import {Component} from "../../Component.js";
 import {Button} from "../../ui/button/Button.js";
 import {Checkbox} from "../../ui/checkbox/Checkbox.js";
 
+
 export class TodoItem extends Component {
-    #title;
-    #description;
 
-    #isCompleted = false;
-
-    #onDelete = null;
-    #onEdit = null;
-
-    constructor({title, description, onDelete, onEdit} = {}) {
-        super();
-        this.#title = title;
-        this.#description = description;
-        this.#onDelete = onDelete;
-        this.#onEdit = onEdit;
+    state = {
+        title: null,
+        description: null,
     }
 
-    setTitle(title){
-        this.#title = title;
-        return this;
+    setTitle(title) {
+        return this.setState({title: title});
     }
 
-    setDescription(description){
-        this.#description = description;
-        return this;
+    setDescription(description) {
+        return this.setState({description: description});
     }
 
     render() {
         const item = document.createElement("div");
         item.className = "item-container";
 
-        const checkbox = new Checkbox()
+        this.checkbox = new Checkbox()
             .setIcon("../../assets/check.svg")
-            .onClick(() => console.log("checked"))
-            .render();
+            .onClick(() => console.log("checked"));
+        this.checkbox.mount(item);
 
         const textContainer = this.#getTextContainer();
+        item.append(textContainer);
 
-        const edit = new Button()
+        this.editButton = new Button()
             .setIcon("../../assets/edit.svg")
-            .onClick(() => this.#onEdit())
-            .render();
+            .onClick(() => console.log("edited"));
+        this.editButton.mount(item);
 
-        const del = new Button()
+        this.delButton = new Button()
             .setIcon("../../assets/delete.svg")
-            .onClick(() => this.#onDelete())
-            .render();
-
-        item.append(checkbox, textContainer, edit, del);
+            .onClick(() => console.log("deleted"));
+        this.delButton.mount(item);
 
         return item;
     }
@@ -64,22 +52,14 @@ export class TodoItem extends Component {
 
         const title = document.createElement("h2");
         title.className = "text-container__title";
-        title.textContent = this.#title;
+        title.textContent = this.state.title;
 
         const description = document.createElement("p");
         description.className = "text-container__description";
-        description.textContent = this.#description;
+        description.textContent = this.state.description;
 
         textContainer.append(title, description);
 
         return textContainer;
-    }
-
-    #toggleCompleted() {
-        this.#isCompleted = !this.#isCompleted;
-
-        const newEl = this.render();
-        this.el.replaceWith(newEl);
-        this.el = newEl;
     }
 }

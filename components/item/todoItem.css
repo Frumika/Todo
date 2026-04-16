@@ -12,6 +12,9 @@
 }
 
 .text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     margin: 0 auto 0 0;
 }
 

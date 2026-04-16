@@ -9,12 +9,7 @@
 
     cursor: pointer;
 
-    transition: transform 0.2s ease;
     user-select: none;
-}
-
-.button:active {
-    transform: scale(0.98);
 }
 
 .button__img{

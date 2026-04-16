@@ -7,6 +7,14 @@ import {Logo} from "../../ui/logo/Logo.js";
 
 export class Header extends Component {
 
+    state = {
+        onAddClick: null
+    }
+
+    onAddClick(callback) {
+        return this.setState({onAddClick: callback});
+    }
+
     render() {
         const header = document.createElement("header");
         header.className = "header";
@@ -14,24 +22,28 @@ export class Header extends Component {
         const headerContainer = document.createElement("div");
         headerContainer.className = "header__container";
 
-        header.append(headerContainer)
+        header.append(headerContainer);
 
         const logo = new Logo("My Todo");
-        headerContainer.append(logo.render())
+        logo.mount(headerContainer);
 
-
-        const addButton = new Button()
+        this.addButton = new Button()
             .setIcon("../../assets/add.svg")
             .setText("Добавить")
             .setBorder({
                 width: "2px",
                 style: "solid",
                 color: "#FF7F50"
+            })
+            .onClick(() => {
+                if (this.state.onAddClick) {
+                    this.state.onAddClick(this.addButton);
+                }
             });
 
-
-        headerContainer.append(addButton.render())
+        this.addButton.mount(headerContainer);
 
         return header;
     }
+
 }
