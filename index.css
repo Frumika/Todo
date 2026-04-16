@@ -2,7 +2,7 @@
 @import "ui/logo/logo.css";
 @import "components/header/header.css";
 @import "ui/checkbox/checkbox.css";
-@import "components/item/todoItem.css";
+@import "components/todoItem/todoItem.css";
 
 
 :root {
@@ -34,31 +34,4 @@
     padding: 10px 20px;
     gap: 5px;
 
-}
-
-.item__text {
-    margin: 0 auto 0 0;
-}
-
-.item__text-header {
-    font-size: 22px;
-    font-weight: bold;
-
-}
-
-.item__text-main {
-    font-size: 18px;
-    color: gray;
-}
-
-.item__edit {
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-}
-
-.item__delete {
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
 }

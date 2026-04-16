@@ -13,15 +13,30 @@
 
 .text-container {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
+    margin-left: 10px;
+    padding: 5px 0;
     gap: 5px;
-    margin: 0 auto 0 0;
+}
+
+
+
+.text-container input{
+    border: none;
+    border-bottom: 1px solid black;
+
+    outline: none;
+    outline: 1px black;
+
+    background: none;
+    padding: 0;
+    width: 100%;
 }
 
 .text-container__title {
     font-size: 22px;
-    font-weight: bold;
-
+    font-weight: 600;
 }
 
 .text-container__description {
