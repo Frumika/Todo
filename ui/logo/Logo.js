@@ -1,7 +1,7 @@
 "use strict"
 
 
-import {Component} from "../../Component.js";
+import {Component} from "../Component.js";
 
 export class Logo extends Component {
     #text;

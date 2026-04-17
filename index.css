@@ -3,12 +3,9 @@
 @import "components/header/header.css";
 @import "ui/checkbox/checkbox.css";
 @import "components/todoItem/todoItem.css";
+@import "components/main/main.css";
+@import "pages/app/app.css";
 
-
-:root {
-    --background-color: #FFF5EE;
-    --contrast-color: #FF7F50;
-}
 
 * {
     margin: 0;
@@ -17,21 +14,5 @@
 }
 
 .body {
-    background-color: var(--background-color);
-}
-
-#app {
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* ВСЁ ДЛЯ ЭЛЕМЕНТА */
-
-.main__container {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 20px;
-    gap: 5px;
-
+    background-color: #FFF5EE;
 }

@@ -1,7 +1,7 @@
 "use strict"
 
 
-import {Component} from "../../Component.js";
+import {Component} from "../Component.js";
 
 export class Button extends Component {
 
