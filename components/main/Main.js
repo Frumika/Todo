@@ -30,10 +30,10 @@ export class Main extends Component {
                     isComplete: todo.isComplete,
                     mode: todo.mode,
 
-                    onToggle: this.#handleToggle.bind(this),
-                    onEdit: this.#handleEdit.bind(this),
-                    onDelete: this.#handleDelete.bind(this),
-                    onSave: this.#handleSave.bind(this),
+                    onToggle: (id) => this.#handleToggle(id),
+                    onEdit: (id) => this.#handleEdit(id),
+                    onDelete: (id) => this.#handleDelete(id),
+                    onSave: (id, data) => this.#handleSave(id, data),
                 });
 
             todoItem.mount(mainContainer);
