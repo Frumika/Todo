@@ -7,12 +7,13 @@ import {Logo} from "../../ui/logo/Logo.js";
 
 export class Header extends Component {
 
-    state = {
-        onAddClick: null
+    props = {
+        onAddClick: () => {}
     }
 
     onAddClick(callback) {
-        return this.setState({onAddClick: callback});
+        this.props.onAddClick = callback;
+        return this;
     }
 
     render() {
@@ -36,8 +37,8 @@ export class Header extends Component {
                 color: "#FF7F50"
             })
             .onClick(() => {
-                if (this.state.onAddClick) {
-                    this.state.onAddClick(this.addButton);
+                if (this.props.onAddClick) {
+                    this.props.onAddClick();
                 }
             });
 

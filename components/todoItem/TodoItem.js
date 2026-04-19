@@ -10,33 +10,36 @@ export class TodoItem extends Component {
     #titleInput = null;
     #descriptionInput = null;
 
-    state = {
-        mode: "edit",
+    props = {
+        id: null,
         title: "",
-        description: ""
+        description: "",
+        isComplete: false,
+        mode: "edit",
+
+        onToggle: () => {
+        },
+        onEdit: () => {
+        },
+        onDelete: () => {
+        },
+        onSave: () => {
+        }
     };
 
-    #checkbox = new Checkbox()
-        .onClick(() => this.#toggleComplete());
-
-    #editButton = new Button()
-        .setIcon("../../assets/edit.svg")
-        .onClick(() => this.#switchToEdit());
-
-    #deleteButton = new Button()
-        .setIcon("../../assets/delete.svg")
-        .onClick(() => this.#delete());
-
-    #appendButton = new Button()
-        .setIcon("../../assets/check.svg")
-        .onClick(() => this.#save());
+    #checkbox = new Checkbox();
+    #editButton = new Button().setIcon("../../assets/edit.svg");
+    #deleteButton = new Button().setIcon("../../assets/delete.svg");
+    #saveButton = new Button().setIcon("../../assets/check.svg");
 
 
     render() {
+        this.#bindHandlers();
+
         const container = document.createElement("div");
         container.className = "item-container";
 
-        if (this.state.mode === "edit") {
+        if (this.props.mode === "edit") {
             this.#renderEdit(container);
         } else {
             this.#renderView(container);
@@ -45,11 +48,33 @@ export class TodoItem extends Component {
         return container;
     }
 
+    #bindHandlers() {
+        this.#checkbox
+            .isActive(this.props.isComplete)
+            .onToggle(() => this.props.onToggle(this.props.id));
+
+        this.#editButton
+            .onClick(() => this.props.onEdit(this.props.id));
+
+        this.#deleteButton
+            .onClick(() => this.props.onDelete(this.props.id));
+
+        this.#saveButton
+            .onClick(() => {
+                const data = {
+                    title: this.#titleInput.value ?? "",
+                    description: this.#descriptionInput.value  ?? ""
+                };
+
+                this.props.onSave(this.props.id, data);
+            });
+    }
+
     #renderEdit(container) {
         const textContainer = this.#createTextContainer();
 
-        const title = this.#createInput("text-container__title", "Заголовок", this.state.title);
-        const description = this.#createInput("text-container__description", "Описание", this.state.description);
+        const title = this.#createInput("text-container__title", "Заголовок", this.props.title);
+        const description = this.#createInput("text-container__description", "Описание", this.props.description);
 
         this.#titleInput = title;
         this.#descriptionInput = description;
@@ -57,19 +82,18 @@ export class TodoItem extends Component {
         textContainer.append(title, description);
         container.append(textContainer);
 
-        this.#appendButton.mount(container);
+        this.#saveButton.mount(container);
         this.#deleteButton.mount(container);
     }
 
     #renderView(container) {
-        const isComplete = this.state.mode === "complete";
-
-        this.#checkbox.isActive(isComplete).mount(container);
+        this.#checkbox.mount(container);
 
         const textContainer = this.#createTextContainer();
 
-        const title = this.#createText("h2", "text-container__title", this.state.title, isComplete);
-        const description = this.#createText("p", "text-container__description", this.state.description, isComplete);
+        const isComplete = this.props.isComplete;
+        const title = this.#createText("h2", "text-container__title", this.props.title, isComplete);
+        const description = this.#createText("p", "text-container__description", this.props.description, isComplete);
 
         textContainer.append(title, description);
         container.append(textContainer);
@@ -80,32 +104,6 @@ export class TodoItem extends Component {
 
         this.#deleteButton.mount(container);
     }
-
-
-    #toggleComplete() {
-        const isComplete = this.state.mode === "complete";
-
-        this.setState({
-            mode: isComplete ? "read" : "complete"
-        });
-    };
-
-    #switchToEdit() {
-        this.setState({mode: "edit"});
-    };
-
-    #delete() {
-        this.unmount();
-    };
-
-    #save() {
-        this.setState({
-            mode: "read",
-            title: this.#titleInput?.value ?? "",
-            description: this.#descriptionInput?.value ?? ""
-        });
-    };
-
 
     #createTextContainer() {
         const el = document.createElement("div");

@@ -5,10 +5,10 @@ import {Component} from "../Component.js";
 
 export class Button extends Component {
 
-    state = {
+    props = {
         iconSrc: null,
         text: null,
-        onClick: null,
+        onClick: () => {},
 
         hasBorder: false,
         borderWidth: null,
@@ -17,43 +17,49 @@ export class Button extends Component {
     };
 
     setIcon(src) {
-        return this.setState({iconSrc: src});
+        this.props.iconSrc = src;
+        return this;
     }
 
     setText(text) {
-        return this.setState({text});
+        this.props.text = text;
+        return this;
     }
 
     setBorder({width, style, color} = {}) {
-        return this.setState({
+        this.props = {
+            ...this.props,
             hasBorder: true,
             borderWidth: width,
             borderStyle: style,
             borderColor: color,
-        });
+        };
+
+        return this;
     }
 
     onClick(callback) {
-        return this.setState({onClick: callback});
+        this.props.onClick = callback;
+        return this;
     }
 
     render() {
         const button = document.createElement('div');
         button.className = "button";
 
-        if (this.state.iconSrc) {
+        if (this.props.iconSrc) {
             const icon = document.createElement('img');
             icon.className = "button__img";
-            icon.src = this.state.iconSrc;
-            icon.alt = this.state.text;
+            icon.src = this.props.iconSrc;
+            icon.alt = this.props.text;
 
             button.append(icon);
         }
 
-        if (this.state.text) {
+        if (this.props.text) {
             const text = document.createElement('p');
             text.className = "button__text";
-            text.textContent = this.state.text;
+            text.textContent = this.props.text;
 
             button.append(text);
         }
@@ -65,18 +71,16 @@ export class Button extends Component {
     }
 
     #addListener(button) {
-        if (this.state.onClick) {
-            button.addEventListener('click', (event) => {
-                this.state.onClick(event);
-            });
+        if (this.props.onClick) {
+            button.addEventListener('click', () => this.props.onClick());
         }
     }
 
     #applyStyle(button) {
-        if (this.state.hasBorder) {
-            button.style.borderWidth = this.state.borderWidth;
-            button.style.borderStyle = this.state.borderStyle;
-            button.style.borderColor = this.state.borderColor;
+        if (this.props.hasBorder) {
+            button.style.borderWidth = this.props.borderWidth;
+            button.style.borderStyle = this.props.borderStyle;
+            button.style.borderColor = this.props.borderColor;
         }
     }
 }

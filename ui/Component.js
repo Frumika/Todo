@@ -1,14 +1,13 @@
 export class Component {
     elem = null;
-    state = {};
+    props = {};
 
-    setState(partialState) {
-        this.state = {
-            ...this.state,
-            ...partialState
+    setProps(props) {
+        this.props = {
+            ...this.props,
+            ...props
         };
 
-        this.rerender();
         return this;
     }
 
@@ -27,12 +26,5 @@ export class Component {
     mount(parent) {
         this.elem = this.render();
         parent.append(this.elem);
-    }
-
-    unmount() {
-        if (this.elem) {
-            this.elem.remove();
-            this.elem = null;
-        }
     }
 }
