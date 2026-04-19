@@ -4,6 +4,7 @@
 import {Component} from "../../ui/Component.js";
 import {TodoItem} from "../todoItem/TodoItem.js";
 import {TodoStorage} from "../../storage/TodoStorage.js";
+import {Button} from "../../ui/button/Button.js";
 
 export class Main extends Component {
     state = {
@@ -39,11 +40,21 @@ export class Main extends Component {
             todoItem.mount(mainContainer);
         });
 
+        const addButton = new Button()
+            .setIcon("../../assets/add.svg")
+            .setText("Добавить")
+            .setBorder({
+                width: "1px",
+                style: "solid",
+                color: "#FF7F50"
+            })
+            .onClick(() => this.#addTodoItem());
+        addButton.mount(mainContainer);
 
         return mainContainer;
     }
 
-    addTodoItem() {
+    #addTodoItem() {
         const newTodo = {
             id: crypto.randomUUID(),
             title: "",

@@ -6,8 +6,7 @@ import {Main} from "../../components/main/Main.js";
 
 const app = document.getElementById('app');
 
-const header = new Header()
-    .onAddClick(() => main.addTodoItem());
+const header = new Header();
 
 const main = new Main();
 

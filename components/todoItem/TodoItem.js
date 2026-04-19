@@ -37,7 +37,7 @@ export class TodoItem extends Component {
         this.#bindHandlers();
 
         const container = document.createElement("div");
-        container.className = "item-container";
+        container.className = "todo-item";
 
         if (this.props.mode === "edit") {
             this.#renderEdit(container);
@@ -63,7 +63,7 @@ export class TodoItem extends Component {
             .onClick(() => {
                 const data = {
                     title: this.#titleInput.value ?? "",
-                    description: this.#descriptionInput.value  ?? ""
+                    description: this.#descriptionInput.value ?? ""
                 };
 
                 this.props.onSave(this.props.id, data);
@@ -71,6 +71,7 @@ export class TodoItem extends Component {
     }
 
     #renderEdit(container) {
+        const controlContainer = this.#createControlContainer();
         const textContainer = this.#createTextContainer();
 
         const title = this.#createInput("text-container__title", "Заголовок", this.props.title);
@@ -80,15 +81,20 @@ export class TodoItem extends Component {
         this.#descriptionInput = description;
 
         textContainer.append(title, description);
-        container.append(textContainer);
+        controlContainer.append(textContainer);
 
-        this.#saveButton.mount(container);
-        this.#deleteButton.mount(container);
+        const buttonContainer = this.#createButtonContainer();
+
+        this.#saveButton.mount(buttonContainer);
+        this.#deleteButton.mount(buttonContainer);
+
+        const dividingLine = this.#createHr();
+
+        container.append(controlContainer, dividingLine, buttonContainer);
     }
 
     #renderView(container) {
-        this.#checkbox.mount(container);
-
+        const controlContainer = this.#createControlContainer();
         const textContainer = this.#createTextContainer();
 
         const isComplete = this.props.isComplete;
@@ -96,13 +102,38 @@ export class TodoItem extends Component {
         const description = this.#createText("p", "text-container__description", this.props.description, isComplete);
 
         textContainer.append(title, description);
-        container.append(textContainer);
+
+        this.#checkbox.mount(controlContainer);
+        controlContainer.append(textContainer);
+
+        container.append(controlContainer);
 
         if (!isComplete) {
-            this.#editButton.mount(container);
-        }
+            const buttonContainer = this.#createButtonContainer();
+            this.#editButton.mount(buttonContainer);
 
-        this.#deleteButton.mount(container);
+            const dividingLine = this.#createHr();
+
+            container.append(dividingLine, buttonContainer);
+        }
+    }
+
+    #createHr() {
+        const hr = document.createElement("hr");
+        hr.className = "dividing-line";
+        return hr;
+    }
+
+    #createButtonContainer() {
+        const el = document.createElement("div");
+        el.className = "button-container";
+        return el;
+    }
+
+    #createControlContainer() {
+        const el = document.createElement("div");
+        el.className = "control-container";
+        return el;
     }
 
     #createTextContainer() {
