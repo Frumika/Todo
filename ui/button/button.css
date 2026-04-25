@@ -1,5 +1,6 @@
 .button {
-    border: 2px solid red;
+    --button-bg-color: transperent;
+    background-color: var(--button-bg-color);
 
     border-radius: 8px;
 
@@ -15,12 +16,26 @@
     user-select: none;
 }
 
-.button__img{
+.button--active-bg {
+    transition: background-color 0.2s ease;
+}
+
+.button--active-bg:hover {
+    background-color: color-mix(in srgb, var(--button-bg-color), black 10%);
+}
+
+.button--active-bg:active{
+    background-color: color-mix(in srgb, var(--button-bg-color), black 25%);
+}
+
+.button__img {
     width: 20px;
     height: 20px;
 }
 
-.button__text{
+.button__text {
+    font-family: "Roboto Light", sans-serif;
+
     font-size: 20px;
     font-weight: 300;
 }

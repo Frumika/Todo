@@ -1,10 +1,19 @@
-.todo-item {
-    border-radius: 10px;
-    border: 2px solid #DCDCDC;
+@import "../../styles/variables.css";
 
+
+.todo-item {
     display: flex;
     flex-direction: column;
     max-width: 700px;
+}
+
+.todo-item--read {
+    cursor: pointer;
+}
+
+.todo-item--edit {
+    border: 1px solid var(--todo-item-border);
+    border-radius: 10px;
 }
 
 .control-container {
@@ -14,8 +23,8 @@
     padding: 5px 8px 10px;
 }
 
-.dividing-line{
-    border: 1px solid #DCDCDC;
+.dividing-line {
+    border-bottom: 1px solid var(--todo-item-dividing-line);
     height: 1px;
 }
 
@@ -24,6 +33,12 @@
     flex-grow: 1;
     flex-direction: column;
     gap: 5px;
+
+    font-family: "Roboto Thin", sans-serif;
+}
+
+.text-container--through {
+    text-decoration: line-through;
 }
 
 .text-container input {
@@ -45,10 +60,6 @@
 .text-container__description {
     font-size: 18px;
     color: gray;
-}
-
-.text-container__through {
-    text-decoration: line-through;
 }
 
 .button-container {

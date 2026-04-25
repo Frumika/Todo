@@ -28,20 +28,30 @@ export class TodoItem extends Component {
     };
 
     #checkbox = new Checkbox();
-    #editButton = new Button().setIcon("../../assets/edit.svg");
-    #deleteButton = new Button().setIcon("../../assets/delete.svg");
-    #saveButton = new Button().setIcon("../../assets/check.svg");
+    #deleteButton = new Button()
+        .setText("Удалить")
+        .setFontColor("#444444")
+        .setBackColor("#F5F5F5")
+        .hasActiveBackground();
+
+    #saveButton = new Button()
+        .setText("Сохранить")
+        .setFontColor("white")
+        .setBackColor("#D33322")
+        .hasActiveBackground();
 
 
     render() {
         this.#bindHandlers();
 
         const container = document.createElement("div");
-        container.className = "todo-item";
+        container.classList.add("todo-item");
 
         if (this.props.mode === "edit") {
+            container.classList.add("todo-item--edit");
             this.#renderEdit(container);
         } else {
+            if (!this.props.isComplete) container.classList.add("todo-item--read");
             this.#renderView(container);
         }
 
@@ -52,9 +62,6 @@ export class TodoItem extends Component {
         this.#checkbox
             .isActive(this.props.isComplete)
             .onToggle(() => this.props.onToggle(this.props.id));
-
-        this.#editButton
-            .onClick(() => this.props.onEdit(this.props.id));
 
         this.#deleteButton
             .onClick(() => this.props.onDelete(this.props.id));
@@ -106,20 +113,18 @@ export class TodoItem extends Component {
         this.#checkbox.mount(controlContainer);
         controlContainer.append(textContainer);
 
-        container.append(controlContainer);
+        const dividingLine = this.#createHr();
+
+        container.append(controlContainer, dividingLine);
+
 
         if (!isComplete) {
-            const buttonContainer = this.#createButtonContainer();
-            this.#editButton.mount(buttonContainer);
-
-            const dividingLine = this.#createHr();
-
-            container.append(dividingLine, buttonContainer);
+            this.#addListeners(container);
         }
     }
 
     #createHr() {
-        const hr = document.createElement("hr");
+        const hr = document.createElement("div");
         hr.className = "dividing-line";
         return hr;
     }
@@ -155,10 +160,18 @@ export class TodoItem extends Component {
         el.className = className;
 
         if (isComplete) {
-            el.classList.add("text-container__through");
+            el.classList.add("text-container--through");
         }
 
         el.textContent = text;
         return el;
+    }
+
+    #addListeners(container) {
+        container.addEventListener("click", (event) => {
+            if (event.target.className !== "checkbox") {
+                this.props.onEdit(this.props.id)
+            }
+        });
     }
 }

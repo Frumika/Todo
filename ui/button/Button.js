@@ -8,12 +8,18 @@ export class Button extends Component {
     props = {
         iconSrc: null,
         text: null,
-        onClick: () => {},
+        fontColor: null,
+        backColor: null,
 
         hasBorder: false,
         borderWidth: null,
         borderStyle: null,
         borderColor: null,
+
+        hasActiveBackground: false,
+
+        onClick: () => {
+        },
     };
 
     setIcon(src) {
@@ -26,6 +32,16 @@ export class Button extends Component {
         return this;
     }
 
+    setFontColor(color) {
+        this.props.fontColor = color;
+        return this;
+    }
+
+    setBackColor(color) {
+        this.props.backColor = color;
+        return this;
+    }
+
     setBorder({width, style, color} = {}) {
         this.props = {
             ...this.props,
@@ -35,6 +51,11 @@ export class Button extends Component {
             borderColor: color,
         };
 
+        return this;
+    }
+
+    hasActiveBackground() {
+        this.props.hasActiveBackground = true;
         return this;
     }
 
@@ -72,7 +93,7 @@ export class Button extends Component {
 
     #addListener(button) {
         if (this.props.onClick) {
-            button.addEventListener('click', () => this.props.onClick());
+            button.addEventListener('click', (event) => this.props.onClick(event));
         }
     }
 
@@ -81,6 +102,18 @@ export class Button extends Component {
             button.style.borderWidth = this.props.borderWidth;
             button.style.borderStyle = this.props.borderStyle;
             button.style.borderColor = this.props.borderColor;
+        }
+
+        if (this.props.fontColor) {
+            button.style.color = this.props.fontColor;
+        }
+
+        if (this.props.backColor) {
+            button.style.setProperty('--button-bg-color', this.props.backColor);
+        }
+
+        if (this.props.hasActiveBackground) {
+            button.classList.add("button--active-bg");
         }
     }
 }
