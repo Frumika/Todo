@@ -8,7 +8,7 @@ import {Button} from "../../ui/button/Button.js";
 
 export class Main extends Component {
     state = {
-        todos: []
+        todos: TodoStorage.load()
     };
 
     #commit() {
@@ -17,8 +17,6 @@ export class Main extends Component {
     }
 
     render() {
-        this.state.todos = TodoStorage.load();
-
         const mainContainer = document.createElement("div");
         mainContainer.className = "main-container";
 
@@ -63,7 +61,7 @@ export class Main extends Component {
             mode: "edit"
         };
 
-        this.state.todos = [...this.state.todos, newTodo];
+        this.state.todos = [...this.state.todos.map(todo => ({...todo, mode: "read"})), newTodo];
         this.#commit();
     }
 
@@ -81,7 +79,7 @@ export class Main extends Component {
         this.state.todos = this.state.todos.map(todo =>
             todo.id === id
                 ? {...todo, mode: "edit"}
-                : todo
+                : {...todo, mode: "read"}
         );
 
         this.#commit();
