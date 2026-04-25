@@ -17,8 +17,13 @@ export class Main extends Component {
     }
 
     render() {
+        const main = document.createElement("div");
+        main.className = "main";
+
         const mainContainer = document.createElement("div");
         mainContainer.className = "main-container";
+
+        main.append(mainContainer);
 
         this.state.todos.forEach(todo => {
             const todoItem = new TodoItem()
@@ -45,9 +50,9 @@ export class Main extends Component {
             .setBackColor("#D33322")
             .hasActiveBackground()
             .onClick(() => this.#addTodoItem());
-        addButton.mount(mainContainer);
+        addButton.mount(main);
 
-        return mainContainer;
+        return main;
     }
 
     #addTodoItem() {

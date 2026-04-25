@@ -1,7 +1,28 @@
-.main-container {
+.main {
+    border: 2px solid red;
+
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    flex: 1;
+
+    min-height: 0;
 
     padding: 15px 20px;
+}
+
+.main-container {
+    border: 2px solid yellowgreen;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+    overflow-y: auto;
+
+    gap: 5px;
+
+    width: 700px;
+    min-width: 450px;
+
+    margin-bottom: 20px;
 }

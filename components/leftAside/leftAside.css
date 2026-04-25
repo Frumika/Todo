@@ -1,0 +1,11 @@
+.left-aside__container {
+    border: 2px solid aqua;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+    width: 35vh;
+
+    background-color: var(--aside-bg-color);
+}

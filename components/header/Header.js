@@ -6,6 +6,9 @@ import {Logo} from "../../ui/logo/Logo.js";
 
 
 export class Header extends Component {
+    props = {
+        projectName: null
+    }
 
     render() {
         const header = document.createElement("header");
@@ -16,7 +19,7 @@ export class Header extends Component {
 
         header.append(headerContainer);
 
-        const logo = new Logo("My Todo");
+        const logo = new Logo(this.props.projectName);
         logo.mount(headerContainer);
 
         return header;

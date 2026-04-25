@@ -4,7 +4,7 @@
 
     border-radius: 8px;
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
     align-self: flex-start;
 

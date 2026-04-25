@@ -5,6 +5,8 @@
 @import "components/todoItem/todoItem.css";
 @import "components/main/main.css";
 @import "pages/app/app.css";
+@import "components/content/content.css";
+@import "components/leftAside/leftAside.css";
 
 
 * {
