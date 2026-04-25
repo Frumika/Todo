@@ -28,16 +28,19 @@ export class TodoItem extends Component {
     };
 
     #checkbox = new Checkbox();
-    #deleteButton = new Button()
-        .setText("Удалить")
-        .setFontColor("#444444")
-        .setBackColor("#F5F5F5")
-        .hasActiveBackground();
 
     #saveButton = new Button()
+        .setIcon("../../assets/check.svg")
         .setText("Сохранить")
         .setFontColor("white")
         .setBackColor("#D33322")
+        .hasActiveBackground();
+
+    #deleteButton = new Button()
+        .setIcon("../../assets/delete.svg")
+        .setText("Удалить")
+        .setFontColor("#444444")
+        .setBackColor("#F5F5F5")
         .hasActiveBackground();
 
 

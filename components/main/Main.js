@@ -41,11 +41,9 @@ export class Main extends Component {
         const addButton = new Button()
             .setIcon("../../assets/add.svg")
             .setText("Добавить")
-            .setBorder({
-                width: "1px",
-                style: "solid",
-                color: "#FF7F50"
-            })
+            .setFontColor("white")
+            .setBackColor("#D33322")
+            .hasActiveBackground()
             .onClick(() => this.#addTodoItem());
         addButton.mount(mainContainer);
 
@@ -82,7 +80,7 @@ export class Main extends Component {
                 : {...todo, mode: "read"}
         );
 
-        this.#commit();
+        this.rerender();
     }
 
     #handleSave(id, data) {
