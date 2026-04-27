@@ -1,6 +1,4 @@
 .left-aside__container {
-    border: 2px solid aqua;
-
     display: flex;
     flex-direction: column;
 

@@ -7,7 +7,9 @@ import {Logo} from "../../ui/logo/Logo.js";
 
 export class Header extends Component {
     props = {
-        projectName: null
+        projectName: null,
+        onAdd: () => {
+        }
     }
 
     render() {
@@ -21,6 +23,15 @@ export class Header extends Component {
 
         const logo = new Logo(this.props.projectName);
         logo.mount(headerContainer);
+
+        const addButton = new Button()
+            .setIcon("../../assets/add.svg")
+            .setText("Добавить задачу")
+            .setFontColor("white")
+            .setBackColor("#D33322")
+            .hasActiveBackground()
+            .onClick(() => this.props.onAdd());
+        addButton.mount(headerContainer);
 
         return header;
     }

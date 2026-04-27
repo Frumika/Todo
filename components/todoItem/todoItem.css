@@ -35,6 +35,10 @@
     gap: 5px;
 
     font-family: "Roboto Thin", sans-serif;
+
+    min-width: 0;
+
+    overflow-wrap: break-word;
 }
 
 .text-container--through {
@@ -55,11 +59,13 @@
 .text-container__title {
     font-size: 22px;
     font-weight: 600;
+    /*overflow-wrap: break-word;*/
 }
 
 .text-container__description {
     font-size: 18px;
     color: gray;
+    /*overflow-wrap: break-word;*/
 }
 
 .button-container {

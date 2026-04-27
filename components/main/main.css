@@ -1,18 +1,15 @@
 .main {
-    border: 2px solid red;
-
     display: flex;
     flex-direction: column;
     flex: 1;
 
     min-height: 0;
+    height: 100%;
 
-    padding: 15px 20px;
+    padding: 0 40px;
 }
 
 .main-container {
-    border: 2px solid yellowgreen;
-
     display: flex;
     flex-direction: column;
 
@@ -21,8 +18,8 @@
 
     gap: 5px;
 
-    width: 700px;
-    min-width: 450px;
+    width: 100%;
+    /*max-width: 700px;*/
 
-    margin-bottom: 20px;
+    padding-bottom: 5px;
 }

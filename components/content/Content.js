@@ -14,11 +14,14 @@ export class Content extends Component {
 
         content.append(contentContainer);
 
-        const header = new Header()
-            .setProps({projectName: "Заглушка"});
-        header.mount(contentContainer);
-
         const main = new Main();
+        const header = new Header()
+            .setProps({
+                projectName: "Заглушка",
+                onAdd: () => main.addTodoItem()
+            });
+
+        header.mount(contentContainer);
         main.mount(contentContainer)
 
         return content;

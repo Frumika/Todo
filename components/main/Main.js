@@ -43,19 +43,10 @@ export class Main extends Component {
             todoItem.mount(mainContainer);
         });
 
-        const addButton = new Button()
-            .setIcon("../../assets/add.svg")
-            .setText("Добавить")
-            .setFontColor("white")
-            .setBackColor("#D33322")
-            .hasActiveBackground()
-            .onClick(() => this.#addTodoItem());
-        addButton.mount(main);
-
         return main;
     }
 
-    #addTodoItem() {
+    addTodoItem() {
         const newTodo = {
             id: crypto.randomUUID(),
             title: "",
