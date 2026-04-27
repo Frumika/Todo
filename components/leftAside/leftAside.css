@@ -3,7 +3,16 @@
     flex-direction: column;
 
     height: 100vh;
-    width: 35vh;
+    width: 250px;
 
     background-color: var(--aside-bg-color);
+}
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 15px 10px 0 10px;
+    gap: 5px;
 }
