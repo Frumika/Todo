@@ -4,9 +4,15 @@
 import {Component} from "../../ui/Component.js";
 import {Button} from "../../ui/button/Button.js";
 
-export class LeftAside extends Component{
+export class LeftAside extends Component {
+    props = {
+        onLoginClick: () => {
+        },
+        onRegisterClick: () => {
+        }
+    }
 
-    render(){
+    render() {
         const leftAside = document.createElement("div");
         leftAside.className = "left-aside";
 
@@ -20,16 +26,18 @@ export class LeftAside extends Component{
             .setIcon("../../assets/login.svg")
             .setText("Вход")
             .setFontColor("#202020")
-            .setBackColor("#FCFAF8")
+            .setBackColor("white")
             .hasActiveBackground()
+            .onClick(() => this.props.onLoginClick())
         loginButton.mount(auth);
 
         const registerButton = new Button()
             .setIcon("../../assets/register.svg")
             .setText("Регистрация")
             .setFontColor("#202020")
-            .setBackColor("#FCFAF8")
+            .setBackColor("white")
             .hasActiveBackground()
+            .onClick(() => this.props.onRegisterClick())
         registerButton.mount(auth);
 
         leftAsideContainer.append(auth);

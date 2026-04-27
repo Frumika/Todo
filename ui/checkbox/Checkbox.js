@@ -24,7 +24,7 @@ export class Checkbox extends Component {
         checkbox.className = "checkbox";
 
         if (this.props.isActive) {
-            checkbox.style.backgroundColor = "lightgray";
+            checkbox.style.backgroundColor = "#F0E2D9";
         } else {
             checkbox.style.backgroundColor = "transparent";
         }

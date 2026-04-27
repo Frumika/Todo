@@ -5,7 +5,7 @@
     height: 100vh;
     width: 250px;
 
-    background-color: var(--aside-bg-color);
+    background: white;
 }
 
 .auth {
