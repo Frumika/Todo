@@ -17,7 +17,7 @@ export class Content extends Component {
         const main = new Main();
         const header = new Header()
             .setProps({
-                projectName: "Заглушка",
+                projectName: "Текущий проект",
                 onAdd: () => main.addTodoItem()
             });
 

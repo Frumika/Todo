@@ -1,6 +1,6 @@
 .header{
     padding: 15px 40px;
-    border-bottom: 2px solid var(--todo-item-dividing-line);
+    border-bottom: 2px solid var(--header-divigin-line);
 }
 
 .header__container{
