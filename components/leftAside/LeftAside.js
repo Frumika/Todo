@@ -6,9 +6,9 @@ import {Button} from "../../ui/button/Button.js";
 
 export class LeftAside extends Component {
     props = {
-        onLoginClick: () => {
+        onLogin: () => {
         },
-        onRegisterClick: () => {
+        onRegister: () => {
         }
     }
 
@@ -28,7 +28,7 @@ export class LeftAside extends Component {
             .setFontColor("#202020")
             .setBackColor("white")
             .hasActiveBackground()
-            .onClick(() => this.props.onLoginClick())
+            .onClick(() => this.props.onLogin())
         loginButton.mount(auth);
 
         const registerButton = new Button()
@@ -37,7 +37,7 @@ export class LeftAside extends Component {
             .setFontColor("#202020")
             .setBackColor("white")
             .hasActiveBackground()
-            .onClick(() => this.props.onRegisterClick())
+            .onClick(() => this.props.onRegister())
         registerButton.mount(auth);
 
         leftAsideContainer.append(auth);

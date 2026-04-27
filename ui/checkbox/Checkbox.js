@@ -5,7 +5,8 @@ import {Component} from "../Component.js";
 export class Checkbox extends Component {
 
     props = {
-        onToggle: () => {},
+        onToggle: () => {
+        },
         isActive: false,
     };
 
@@ -24,7 +25,7 @@ export class Checkbox extends Component {
         checkbox.className = "checkbox";
 
         if (this.props.isActive) {
-            checkbox.style.backgroundColor = "#F0E2D9";
+            checkbox.style.backgroundColor = "#DCDCDC";
         } else {
             checkbox.style.backgroundColor = "transparent";
         }

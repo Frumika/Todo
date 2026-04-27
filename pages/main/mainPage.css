@@ -1,4 +1,4 @@
-#app{
+.main-page {
     display: flex;
     background: var(--aside-bg-color);
     gap: 10px;

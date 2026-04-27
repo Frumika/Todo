@@ -13,6 +13,7 @@ export class Component {
 
     render() {
         throw new Error("Method render() must be implemented");
+        return null;
     }
 
     rerender() {
