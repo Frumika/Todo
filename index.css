@@ -7,6 +7,8 @@
 @import "components/content/content.css";
 @import "components/leftAside/leftAside.css";
 @import "pages/mainPage/mainPage.css";
+@import "pages/loginPage/loginPage.css";
+@import "ui/input/input.css";
 
 
 * {

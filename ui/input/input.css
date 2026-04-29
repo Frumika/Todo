@@ -1,0 +1,44 @@
+.input-container {
+    display: flex;
+
+    border-radius: 8px;
+    border: 2px solid var(--todo-item-dividing-line);
+}
+
+.input-container:focus-within {
+    border: 2px solid var(--todo-item-border);
+}
+
+.input-container__text {
+    padding: 1px 8px;
+
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    font-size: 24px;
+    font-weight: 400;
+    font-family: "Roboto Thin", sans-serif;
+
+    color: #575656;
+
+    background: none;
+
+}
+
+.input-container__text::placeholder {
+    color: var(--todo-item-dividing-line);
+    user-select: none;
+}
+
+
+.input-container__toggle-button{
+    border: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50px;
+}
+
+
+

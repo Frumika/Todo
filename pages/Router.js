@@ -1,4 +1,5 @@
 import {MainPage} from "./mainPage/MainPage.js";
+import {LoginPage} from "./loginPage/LoginPage.js";
 
 export class Router {
     constructor(root) {
@@ -11,7 +12,7 @@ export class Router {
             onRegister: () => this.navigate('register')
         });
 
-    #loginPage = null;
+    #loginPage = new LoginPage();
     #registerPage = null;
 
     navigate(route) {
@@ -25,10 +26,7 @@ export class Router {
                 break;
             }
             case 'login': {
-                console.log("Go to login page");
-                page = this.#mainPage;
-
-                // page = this.#loginPage;
+                page = this.#loginPage;
                 break;
             }
             case 'register': {

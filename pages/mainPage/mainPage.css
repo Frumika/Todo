@@ -1,5 +1,5 @@
 .main-page {
     display: flex;
-    background: var(--aside-bg-color);
+    background: var(--app-bg-color);
     gap: 10px;
 }
