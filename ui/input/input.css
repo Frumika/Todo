@@ -3,6 +3,8 @@
 
     border-radius: 8px;
     border: 2px solid var(--todo-item-dividing-line);
+
+    align-items: center;
 }
 
 .input-container:focus-within {
