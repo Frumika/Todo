@@ -1,4 +1,4 @@
-import {MainPage} from "./main/MainPage.js";
+import {MainPage} from "./mainPage/MainPage.js";
 
 export class Router {
     constructor(root) {
