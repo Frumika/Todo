@@ -1,13 +1,27 @@
-.login-page {
+.auth-page{
     display: flex;
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.auth-page__header{
+    display: flex;
+    justify-content: start;
+
+    padding: 15px 10px 0 10px;
+}
+
+.auth-page__main {
+    display: flex;
+    flex: 1;
+    height: auto;
     justify-content: center;
     align-items: center;
     background-color: white;
     font-family: "Roboto Thin", sans-serif;
 }
 
-.login-page__container {
+.auth-page__main-container {
     border-radius: 10px;
 
     display: flex;
@@ -26,18 +40,18 @@
     gap: 10px;
 }
 
-.header-container {
+.auth-page__header-container {
     display: flex;
     justify-content: center;
 }
 
-.header-container__text {
+.auth-page__header-text {
     color: #575656;
     font-weight: bold;
     font-size: 24px;
 }
 
-.login-page__input-container {
+.auth-page__input-container {
     flex-direction: column;
     display: flex;
 
@@ -45,7 +59,7 @@
     gap: 5px;
 }
 
-.login-page__button-container {
+.auth-page__button-container {
     display: flex;
     justify-content: end;
 }

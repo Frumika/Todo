@@ -1,5 +1,6 @@
 import {MainPage} from "./mainPage/MainPage.js";
 import {LoginPage} from "./loginPage/LoginPage.js";
+import {RegisterPage} from "./registerPage/RegisterPage.js";
 
 export class Router {
     constructor(root) {
@@ -12,14 +13,26 @@ export class Router {
             onRegister: () => this.navigate('register')
         });
 
-    #loginPage = new LoginPage();
-    #registerPage = null;
+    #loginPage = new LoginPage()
+        .setProps({
+            headerText: "С возвращением!",
+            buttonText: "Войти",
+            iconSrc: "../../assets/login-white.svg",
+            onBack: () => this.navigate('main')
+        });
+
+    #registerPage = new RegisterPage()
+        .setProps({
+            headerText: "Регистрация",
+            buttonText: "Зарегистрироваться",
+            iconSrc: "../../assets/register-white.svg",
+            onBack: () => this.navigate('main')
+        });
 
     navigate(route) {
         this.root.innerHTML = '';
 
         let page = null;
-
         switch (route) {
             case 'main': {
                 page = this.#mainPage;
@@ -30,10 +43,7 @@ export class Router {
                 break;
             }
             case 'register': {
-                console.log("Go to Register page");
-                page = this.#mainPage;
-
-                // page = this.#registerPage;
+                page = this.#registerPage;
                 break;
             }
             default: {
@@ -42,6 +52,5 @@ export class Router {
         }
 
         page.mount(this.root);
-
     }
 }

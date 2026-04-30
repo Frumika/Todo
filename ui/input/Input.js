@@ -4,6 +4,8 @@ export class Input extends Component {
     props = {
         placeholder: null,
         value: "",
+        onSendData: (data) => {
+        },
     }
 
     render() {

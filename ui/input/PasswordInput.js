@@ -2,14 +2,16 @@ import {Component} from "../Component.js";
 import {Input} from "./Input.js";
 
 export class PasswordInput extends Component {
-    #isVisible = false;
     #inputElem = null;
     #iconElem = null;
 
     props = {
+        isVisible: false,
         placeholder: null,
         value: "",
         type: "password",
+        onToggle: () => {
+        },
     }
 
 
@@ -54,21 +56,25 @@ export class PasswordInput extends Component {
         this.#iconElem.alt = "toggle";
         this.#iconElem.className = "input-container__toggle-button";
 
-        this.#iconElem.addEventListener("click", () => this.switchType());
+        this.#iconElem.addEventListener("click", () => {
+            this.switchType();
+            this.props.onToggle();
+        });
+
         return this.#iconElem;
     }
 
     switchType() {
-        this.#isVisible = !this.#isVisible;
+        this.props.isVisible = !this.props.isVisible;
         this.applyState();
     }
 
     applyState() {
-        this.#inputElem.type = this.#isVisible ? "text" : "password";
+        this.#inputElem.type = this.props.isVisible ? "text" : "password";
 
         if (this.#iconElem) {
             let src = "../../assets/";
-            src += this.#isVisible ? "eye-open.svg" : "eye-close.svg";
+            src += this.props.isVisible ? "eye-open.svg" : "eye-close.svg";
             this.#iconElem.src = src;
         }
     }
