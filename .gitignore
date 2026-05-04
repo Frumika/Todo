@@ -75,8 +75,7 @@ yarn-error.log*
 # Logs
 Backend/**/logs/
 
-# appsettings override (если появятся секреты)
-Backend/**/appsettings.Development.json
+
 
 # ----------------------
 # Docker
