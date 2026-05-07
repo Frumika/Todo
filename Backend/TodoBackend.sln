@@ -8,6 +8,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Application", "Back
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.DataAccess", "Backend.DataAccess\Backend.DataAccess.csproj", "{8A1D94A2-5CFE-48AA-9A09-D03AE66FDD60}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{306605CF-C14B-40C6-9B0B-E5502E8118E4}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		..\compose.yaml = ..\compose.yaml
+		..\.gitignore = ..\.gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
