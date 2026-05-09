@@ -1,7 +1,7 @@
 ﻿using Backend.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.DataAccess.Persistence.MySQL.Contexts;
+namespace Backend.DataAccess.MySQL.Contexts;
 
 public class MainDbContext : DbContext
 {

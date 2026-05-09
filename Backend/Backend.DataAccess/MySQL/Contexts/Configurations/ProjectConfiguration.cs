@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Backend.DataAccess.Persistence.MySQL.Contexts.Configurations;
+namespace Backend.DataAccess.MySQL.Contexts.Configurations;
 
 public class ProjectConfiguration : IEntityTypeConfiguration<Project>
 {

@@ -4,7 +4,7 @@ using Backend.Application.Requests.Auth;
 using Backend.Application.Requests.Base;
 using Backend.Application.Responses;
 using Backend.Application.Statuses;
-using Backend.DataAccess.Persistence.MySQL.Contexts;
+using Backend.DataAccess.MySQL.Contexts;
 using Backend.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
