@@ -1,16 +1,14 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
-USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 8801
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Backend.API/Backend.API.csproj", "Backend.API/"]
-COPY ["Backend.Domain/Backend.Domain.csproj", "Backend.Domain/"]
-COPY ["Backend.DataAccess/Backend.DataAccess.csproj", "Backend.DataAccess/"]
 COPY ["Backend.Application/Backend.Application.csproj", "Backend.Application/"]
+COPY ["Backend.DataAccess/Backend.DataAccess.csproj", "Backend.DataAccess/"]
+COPY ["Backend.Domain/Backend.Domain.csproj", "Backend.Domain/"]
 RUN dotnet restore "Backend.API/Backend.API.csproj"
 COPY . .
 WORKDIR "/src/Backend.API"

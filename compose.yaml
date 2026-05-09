@@ -1,25 +1,36 @@
 ﻿services:
-  backend.api:
-    image: backend.api
+  api-server:
+    container_name: todo-api-server
     build:
-      context: .
-      dockerfile: Backend.API/Dockerfile
+      context: ./Backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8801:8001"
+    depends_on:
+      - mysql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    networks:
+      - todo-app-network
+  
+  mysql:
+    container_name: todo-mysql
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: main_db
+      MYSQL_USER: user
+    ports:
+      - "8802:3306"
+    networks:
+      - todo-app-network
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
 
-  backend.application:
-    image: backend.application
-    build:
-      context: .
-      dockerfile: Backend.Application/Dockerfile
+networks:
+  todo-app-network:
 
-  backend.dataaccess:
-    image: backend.dataaccess
-    build:
-      context: .
-      dockerfile: Backend.DataAccess/Dockerfile
-
-  backend.domain:
-    image: backend.domain
-    build:
-      context: .
-      dockerfile: Backend.Domain/Dockerfile
-
+volumes:
+  todo-mysql-data:
