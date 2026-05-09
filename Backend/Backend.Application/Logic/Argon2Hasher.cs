@@ -6,6 +6,11 @@ namespace Backend.Application.Logic;
 
 public static class Argon2Hasher
 {
+    private static int _degreeOfParallelism = 4;
+    private static int _memorySize = 65536;
+    private static int _iterations = 4; 
+    
+    
     public static string HashPassword(string password)
     {
         byte[] salt = new byte[16];
@@ -15,9 +20,9 @@ public static class Argon2Hasher
         var argon2 = new Argon2id(Encoding.UTF8.GetBytes(password))
         {
             Salt = salt,
-            DegreeOfParallelism = 4,
-            MemorySize = 65536,
-            Iterations = 4
+            DegreeOfParallelism = _degreeOfParallelism,
+            MemorySize = _memorySize,
+            Iterations = _iterations
         };
 
         byte[] hash = argon2.GetBytes(32);
@@ -38,9 +43,9 @@ public static class Argon2Hasher
         var argon2 = new Argon2id(Encoding.UTF8.GetBytes(password))
         {
             Salt = salt,
-            DegreeOfParallelism = 4,
-            MemorySize = 65536,
-            Iterations = 4
+            DegreeOfParallelism = _degreeOfParallelism,
+            MemorySize = _memorySize,
+            Iterations = _iterations
         };
 
         byte[] key = argon2.GetBytes(32);
