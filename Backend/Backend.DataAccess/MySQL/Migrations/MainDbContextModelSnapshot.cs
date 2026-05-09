@@ -75,18 +75,20 @@ namespace Backend.DataAccess.MySQL.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("is_revoked");
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("token");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int")
                         .HasColumnName("user_id");
 
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("value");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("Value");
 
                     b.ToTable("refresh_tokens", (string)null);
                 });

@@ -17,7 +17,7 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
             .ValueGeneratedOnAdd();
 
         entity.Property(rt => rt.Value)
-            .HasColumnName("token")
+            .HasColumnName("value")
             .IsRequired();
 
         entity.Property(rt => rt.ExpiresAt)
@@ -37,5 +37,7 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
             .WithMany(rt => rt.RefreshTokens)
             .HasForeignKey(rt => rt.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        entity.HasIndex(rt => rt.Value);
     }
 }
