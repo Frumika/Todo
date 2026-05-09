@@ -1,4 +1,4 @@
-﻿using Backend.DataAccess.MySQL.Contexts;
+﻿using Backend.DataAccess.Persistence.MySQL.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.API.Extensions;

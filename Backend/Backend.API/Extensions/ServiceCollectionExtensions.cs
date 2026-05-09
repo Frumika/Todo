@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Backend.DataAccess.MySQL.Contexts;
+using Backend.DataAccess.Persistence.MySQL.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
