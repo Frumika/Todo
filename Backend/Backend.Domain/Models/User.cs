@@ -7,4 +7,5 @@ public class User
     public string HashPassword { get; set; } = string.Empty;
     
     public ICollection<Project>? Projects { get; set; }
+    
 }

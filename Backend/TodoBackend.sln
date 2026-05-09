@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Domain", "Backend.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Application", "Backend.Application\Backend.Application.csproj", "{BED6E87E-E5BC-4126-9485-DC2A70CB5B79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.DataAccess", "Backend.DataAccess\Backend.DataAccess.csproj", "{8A1D94A2-5CFE-48AA-9A09-D03AE66FDD60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Infrastructure", "Backend.Infrastructure\Backend.Infrastructure.csproj", "{8A1D94A2-5CFE-48AA-9A09-D03AE66FDD60}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{306605CF-C14B-40C6-9B0B-E5502E8118E4}"
 	ProjectSection(SolutionItems) = preProject
