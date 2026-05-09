@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Backend.Application.Services;
 using Backend.DataAccess.Persistence.MySQL.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
@@ -44,7 +45,8 @@ public static class ServiceCollectionExtensions
 
         private IServiceCollection AddApplicationServices()
         {
-            // Добавить сюда все использующиеся сервисы
+            services.AddScoped<TokenService>();
+            services.AddScoped<AuthService>();
 
             return services;
         }

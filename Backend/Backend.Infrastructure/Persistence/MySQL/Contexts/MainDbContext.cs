@@ -8,6 +8,7 @@ public class MainDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Project> Projects => Set<Project>();
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
     public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
     {

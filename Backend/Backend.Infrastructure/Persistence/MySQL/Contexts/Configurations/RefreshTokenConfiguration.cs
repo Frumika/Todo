@@ -16,7 +16,7 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
             .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
-        entity.Property(rt => rt.Token)
+        entity.Property(rt => rt.Value)
             .HasColumnName("token")
             .IsRequired();
 
