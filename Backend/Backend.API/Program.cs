@@ -1,10 +1,12 @@
 using Backend.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 app.InitializeApplication();
 app.UseApplicationPipeline();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
