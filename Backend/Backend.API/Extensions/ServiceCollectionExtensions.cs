@@ -50,18 +50,6 @@ public static class ServiceCollectionExtensions
 
         private IServiceCollection AddApplicationServices(IConfiguration config)
         {
-            services.AddScoped<TokenService>(_ =>
-            {
-                IConfigurationSection jwt = config.GetSection("Jwt");
-
-                return new TokenService(
-                    jwt["Secret"]!,
-                    jwt["Issuer"]!,
-                    jwt["Audience"]!,
-                    int.Parse(jwt["ExpiresMinutes"]!)
-                );
-            });
-
             services.AddScoped<AuthService>();
 
             return services;
@@ -77,12 +65,9 @@ public static class ServiceCollectionExtensions
             return services;
         }
 
-        private IServiceCollection AddJwtAuthentication(
-            IConfiguration config)
+        private IServiceCollection AddJwtAuthentication(IConfiguration config)
         {
-            IConfigurationSection jwt = config.GetSection("Jwt");
-
-            string secret = jwt["Secret"]!;
+            string secret = config["Configuration:Jwt:Secret"]!;
 
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -96,21 +81,19 @@ public static class ServiceCollectionExtensions
                             ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
 
-                            ValidIssuer = jwt["Issuer"],
-                            ValidAudience = jwt["Audience"],
+                            ValidIssuer = config["Configuration:Jwt:Issuer"],
+                            ValidAudience = config["Configuration:Jwt:Audience"],
 
-                            IssuerSigningKey =
-                                new SymmetricSecurityKey(
-                                    Encoding.UTF8.GetBytes(secret))
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
                         };
                 });
 
             services.AddScoped<TokenService>(_ =>
                 new TokenService(
                     secret,
-                    jwt["Issuer"]!,
-                    jwt["Audience"]!,
-                    int.Parse(jwt["ExpiresMinutes"]!)
+                    config["Configuration:Jwt:Issuer"]!,
+                    config["Configuration:Jwt:Audience"]!,
+                    int.Parse(config["Configuration:Jwt:ExpiresMinutes"]!)
                 ));
 
             return services;
