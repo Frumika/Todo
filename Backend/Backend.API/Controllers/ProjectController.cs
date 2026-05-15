@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Backend.API.Extensions;
+﻿using Backend.API.Extensions;
 using Backend.Application.Requests.Project;
 using Backend.Application.Services;
 using Microsoft.AspNetCore.Authorization;
