@@ -94,34 +94,13 @@ public class AuthService
         }
     }
 
-    public async Task<Response> LogoutAsync(string refreshToken)
-    {
-        try
-        {
-            RefreshToken? token = await _dbContext.RefreshTokens
-                .FirstOrDefaultAsync(rt => rt.Value == refreshToken);
-
-            if (token is null)
-                return Response.Success("Already logged out");
-
-            token.IsRevoked = true;
-            await _dbContext.SaveChangesAsync();
-
-            return Response.Success("Logged out");
-        }
-        catch (Exception)
-        {
-            return Response.Fail(new UnknownError(), "Internal server error");
-        }
-    }
-    
-    public async Task<Response> RefreshAccessTokenAsync(string refreshToken)
+    public async Task<Response> RefreshAccessTokenAsync(RefreshRequest request)
     {
         try
         {
             RefreshToken? token = await _dbContext.RefreshTokens
                 .Include(rt => rt.User)
-                .FirstOrDefaultAsync(rt => rt.Value == refreshToken);
+                .FirstOrDefaultAsync(rt => rt.Value == request.RefreshToken);
 
             if (token is null)
                 return Response.Fail(new TokenNotFound(), "Invalid refresh token");
@@ -144,6 +123,50 @@ public class AuthService
                     RefreshToken = token.Value
                 }
             );
+        }
+        catch (Exception)
+        {
+            return Response.Fail(new UnknownError(), "Internal server error");
+        }
+    }
+
+    public async Task<Response> LogoutAsync(LogoutRequest request)
+    {
+        try
+        {
+            RefreshToken? token = await _dbContext.RefreshTokens
+                .FirstOrDefaultAsync(rt => rt.Value == request.RefreshToken);
+
+            if (token is null)
+                return Response.Success("Already logged out");
+
+            token.IsRevoked = true;
+            await _dbContext.SaveChangesAsync();
+
+            return Response.Success("Logged out");
+        }
+        catch (Exception)
+        {
+            return Response.Fail(new UnknownError(), "Internal server error");
+        }
+    }
+
+    public async Task<Response> LogoutAllAsync(int userId)
+    {
+        try
+        {
+            List<RefreshToken> refreshTokens = await _dbContext.RefreshTokens
+                .Where(rt => rt.UserId == userId)
+                .ToListAsync();
+
+            foreach (RefreshToken rt in refreshTokens)
+            {
+                rt.IsRevoked = true;
+            }
+
+            await _dbContext.SaveChangesAsync();
+
+            return Response.Success("All sessions were logged out");
         }
         catch (Exception)
         {

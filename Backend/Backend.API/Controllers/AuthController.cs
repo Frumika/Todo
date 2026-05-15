@@ -1,4 +1,5 @@
-﻿using Backend.API.Extensions;
+﻿using System.Security.Claims;
+using Backend.API.Extensions;
 using Backend.Application.Requests.Auth;
 using Backend.Application.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.API.Controllers;
 
+[ApiController]
+[Route("api/auth")]
 public class AuthController : ControllerBase
 {
     private readonly AuthService _authService;
@@ -29,17 +32,27 @@ public class AuthController : ControllerBase
         return response.ToHttpResponse();
     }
 
-    [HttpDelete("logout/{refreshToken}")]
-    public async Task<IActionResult> Logout([FromRoute] string refreshToken)
+    [HttpPut("refresh")]
+    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
     {
-        var response = await _authService.LogoutAsync(refreshToken);
+        var response = await _authService.RefreshAccessTokenAsync(request);
         return response.ToHttpResponse();
     }
 
-    [HttpPut("refresh/{refreshToken}")]
-    public async Task<IActionResult> Refresh([FromRoute] string refreshToken)
+    [HttpDelete("logout")]
+    public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
     {
-        var response = await _authService.RefreshAccessTokenAsync(refreshToken);
+        var response = await _authService.LogoutAsync(request);
+        return response.ToHttpResponse();
+    }
+
+    [HttpDelete("logout_all")]
+    public async Task<IActionResult> LogoutAll()
+    {
+        int? userId = User.GetUserId();
+        if (userId is null) return Unauthorized();
+
+        var response = await _authService.LogoutAllAsync((int)userId);
         return response.ToHttpResponse();
     }
 }
