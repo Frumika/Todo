@@ -51,6 +51,7 @@ public static class ServiceCollectionExtensions
         private IServiceCollection AddApplicationServices(IConfiguration config)
         {
             services.AddScoped<AuthService>();
+            services.AddScoped<ProjectService>();
 
             return services;
         }
@@ -103,6 +104,27 @@ public static class ServiceCollectionExtensions
         {
             services.AddSwaggerGen(options =>
             {
+                options.AddSecurityDefinition("Bearer",
+                    new OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Description = "JWT Authorization header"
+                    });
+
+                options.AddSecurityRequirement(document =>
+                    new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecuritySchemeReference("Bearer", document),
+                            new List<string>()
+                        }
+                    }
+                );
+
                 options.CustomSchemaIds(type => type.FullName);
                 options.AddServer(
                     new OpenApiServer
