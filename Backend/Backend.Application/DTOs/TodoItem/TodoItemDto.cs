@@ -1,14 +1,11 @@
-﻿namespace Backend.Domain.Models;
+﻿namespace Backend.Application.DTOs.TodoItem;
 
-public class TodoItem
+public class TodoItemDto
 {
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
-    public string? Description { get; set; }
+    public string Description { get; set; } = string.Empty;
     public bool IsCompleted { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
-
-    public int ProjectId { get; set; }
-    public Project Project { get; set; } = null!;
 }

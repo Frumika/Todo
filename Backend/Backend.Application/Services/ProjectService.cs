@@ -64,10 +64,8 @@ public class ProjectService
                 CreatedAt = DateTime.UtcNow,
                 UserId = user.Id
             };
-
-            user.Projects ??= new List<Project>();
-            user.Projects.Add(project);
-
+            
+            _dbContext.Projects.Add(project);
             await _dbContext.SaveChangesAsync();
 
             ProjectDto projectDto = new ProjectDto

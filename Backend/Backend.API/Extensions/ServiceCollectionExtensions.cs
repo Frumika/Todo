@@ -52,6 +52,7 @@ public static class ServiceCollectionExtensions
         {
             services.AddScoped<AuthService>();
             services.AddScoped<ProjectService>();
+            services.AddScoped<TodoItemService>();
 
             return services;
         }

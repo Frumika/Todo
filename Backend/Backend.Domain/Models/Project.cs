@@ -9,6 +9,6 @@ public class Project
 
     public int UserId { get; set; }
     public User User { get; set; } = null!;
-    
-    public ICollection<TodoItem>? TodoItems { get; set; } 
+
+    public ICollection<TodoItem> TodoItems { get; set; } = new List<TodoItem>();
 }

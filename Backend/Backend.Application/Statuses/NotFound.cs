@@ -16,3 +16,8 @@ public record ProjectNotFound : NotFound
 {
     public override string Code => "project_not_found";
 }
+
+public record TodoItemNotFound : NotFound
+{
+    public override string Code => "todo_item_not_found";
+}
