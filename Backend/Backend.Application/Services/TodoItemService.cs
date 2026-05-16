@@ -18,22 +18,22 @@ public class TodoItemService
         _dbContext = dbContext;
     }
 
-    public async Task<Response> GetTodoItemsAsync(int userId, GetTodoItemsRequest request)
+    public async Task<Response> GetTodoItemsAsync(int userId, int projectId)
     {
         try
         {
-            bool isUserProjectOwner = await IsUserProjectOwner(userId, request.ProjectId);
+            bool isUserProjectOwner = await IsUserProjectOwner(userId, projectId);
             if (!isUserProjectOwner)
                 return Response.Fail(new ProjectNotFound(), "The project wasn't found");
 
             List<TodoItemDto> todoItems = await _dbContext.TodoItems
                 .AsNoTracking()
-                .Where(ti => ti.ProjectId == request.ProjectId)
+                .Where(ti => ti.ProjectId == projectId)
                 .Select(ti => new TodoItemDto
                 {
                     Id = ti.Id,
                     Title = ti.Title,
-                    Description = ti.Description,
+                    Description = ti.Description ?? null,
                     IsCompleted = ti.IsCompleted,
                     CreatedAt = ti.CreatedAt,
                     UpdatedAt = ti.UpdatedAt
@@ -48,11 +48,11 @@ public class TodoItemService
         }
     }
 
-    public async Task<Response> AddTodoItemAsync(int userId, AddTodoItemRequest request)
+    public async Task<Response> CreateTodoItemAsync(int userId, int projectId, CreateTodoItemRequest request)
     {
         try
         {
-            bool isUserProjectOwner = await IsUserProjectOwner(userId, request.ProjectId);
+            bool isUserProjectOwner = await IsUserProjectOwner(userId, projectId);
             if (!isUserProjectOwner)
                 return Response.Fail(new ProjectNotFound(), "The project wasn't found");
 
@@ -62,7 +62,7 @@ public class TodoItemService
                 Description = request.Description,
                 IsCompleted = false,
                 CreatedAt = DateTime.UtcNow,
-                ProjectId = request.ProjectId
+                ProjectId = projectId
             };
 
             _dbContext.TodoItems.Add(todoItem);
@@ -102,7 +102,7 @@ public class TodoItemService
             todoItem.UpdatedAt = DateTime.UtcNow;
 
             await _dbContext.SaveChangesAsync();
-            
+
             TodoItemDto todoItemDto = new TodoItemDto
             {
                 Id = todoItem.Id,
@@ -121,12 +121,12 @@ public class TodoItemService
         }
     }
 
-    public async Task<Response> DeleteTodoItemAsync(int userId, DeleteTodoItemRequest request)
+    public async Task<Response> DeleteTodoItemAsync(int userId, int itemId)
     {
         try
         {
             await _dbContext.TodoItems
-                .Where(ti => ti.Id == request.TodoItemId && ti.Project.UserId == userId)
+                .Where(ti => ti.Id == itemId && ti.Project.UserId == userId)
                 .ExecuteDeleteAsync();
 
             return Response.Success("The todo item was successfully deleted");

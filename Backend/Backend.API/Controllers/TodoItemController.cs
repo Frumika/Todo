@@ -1,5 +1,4 @@
 ﻿using Backend.API.Extensions;
-using Backend.Application.DTOs.TodoItem;
 using Backend.Application.Requests.TodoItem;
 using Backend.Application.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -12,54 +11,54 @@ namespace Backend.API.Controllers;
 [Route("api/todo_item")]
 public class TodoItemController : ControllerBase
 {
-    private readonly TodoItemService _projectService;
+    private readonly TodoItemService _todoItemService;
 
     public TodoItemController(TodoItemService todoItemService)
     {
-        _projectService = todoItemService;
+        _todoItemService = todoItemService;
     }
 
     [Authorize]
-    [HttpGet("todo_items")]
-    public async Task<IActionResult> GetTodoItems(GetTodoItemsRequest request)
+    [HttpGet("all/{projectId:int}")]
+    public async Task<IActionResult> GetTodoItems([FromRoute] int projectId)
     {
         int? userId = User.GetUserId();
         if (userId is null) return Unauthorized();
 
-        var response = await _projectService.GetTodoItemsAsync((int)userId, request);
+        var response = await _todoItemService.GetTodoItemsAsync((int)userId, projectId);
         return response.ToHttpResponse();
     }
 
     [Authorize]
-    [HttpPost("add")]
-    public async Task<IActionResult> AddTodoItem(AddTodoItemRequest request)
+    [HttpPost("create/{projectId:int}")]
+    public async Task<IActionResult> CreateTodoItem([FromRoute] int projectId, [FromBody] CreateTodoItemRequest request)
     {
         int? userId = User.GetUserId();
         if (userId is null) return Unauthorized();
 
-        var response = await _projectService.AddTodoItemAsync((int)userId, request);
+        var response = await _todoItemService.CreateTodoItemAsync((int)userId, projectId, request);
         return response.ToHttpResponse();
     }
 
     [Authorize]
     [HttpPatch("update")]
-    public async Task<IActionResult> UpdateTodoItem(UpdateTodoItemRequest request)
+    public async Task<IActionResult> UpdateTodoItem([FromBody] UpdateTodoItemRequest request)
     {
         int? userId = User.GetUserId();
         if (userId is null) return Unauthorized();
 
-        var response = await _projectService.UpdateTodoItemAsync((int)userId, request);
+        var response = await _todoItemService.UpdateTodoItemAsync((int)userId, request);
         return response.ToHttpResponse();
     }
 
     [Authorize]
-    [HttpDelete("delete")]
-    public async Task<IActionResult> DeleteTodoItem(DeleteTodoItemRequest request)
+    [HttpDelete("delete/{itemId:int}")]
+    public async Task<IActionResult> DeleteTodoItem([FromRoute] int itemId)
     {
         int? userId = User.GetUserId();
         if (userId is null) return Unauthorized();
 
-        var response = await _projectService.DeleteTodoItemAsync((int)userId, request);
+        var response = await _todoItemService.DeleteTodoItemAsync((int)userId, itemId);
         return response.ToHttpResponse();
     }
 }

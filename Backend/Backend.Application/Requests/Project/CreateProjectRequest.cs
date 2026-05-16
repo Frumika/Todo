@@ -1,6 +1,6 @@
 ﻿namespace Backend.Application.Requests.Project;
 
-public class AddProjectRequest
+public class CreateProjectRequest
 {
     public string Name { get; set; } = string.Empty;
 }

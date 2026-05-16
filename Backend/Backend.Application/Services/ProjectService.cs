@@ -48,7 +48,7 @@ public class ProjectService
         }
     }
 
-    public async Task<Response> AddProjectAsync(int userId, AddProjectRequest request)
+    public async Task<Response> CreateProjectAsync(int userId, CreateProjectRequest request)
     {
         try
         {
@@ -115,12 +115,12 @@ public class ProjectService
         }
     }
 
-    public async Task<Response> DeleteProjectAsync(int userId, DeleteProjectRequest request)
+    public async Task<Response> DeleteProjectAsync(int userId, int projectId)
     {
         try
         {
             await _dbContext.Projects
-                .Where(p => p.UserId == userId && p.Id == request.ProjectId)
+                .Where(p => p.UserId == userId && p.Id == projectId)
                 .ExecuteDeleteAsync();
 
             return Response.Success("Project was successfully deleted");

@@ -30,19 +30,19 @@ public class ProjectController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("add")]
-    public async Task<IActionResult> AddProject(AddProjectRequest request)
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateProject([FromBody] CreateProjectRequest request)
     {
         int? userId = User.GetUserId();
         if (userId is null) return Unauthorized();
 
-        var response = await _projectService.AddProjectAsync((int)userId, request);
+        var response = await _projectService.CreateProjectAsync((int)userId, request);
         return response.ToHttpResponse();
     }
 
     [Authorize]
     [HttpPatch("update")]
-    public async Task<IActionResult> UpdateProject(UpdateProjectRequest request)
+    public async Task<IActionResult> UpdateProject([FromBody] UpdateProjectRequest request)
     {
         int? userId = User.GetUserId();
         if (userId is null) return Unauthorized();
@@ -52,13 +52,13 @@ public class ProjectController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete("delete")]
-    public async Task<IActionResult> DeleteProject(DeleteProjectRequest request)
+    [HttpDelete("delete/{projectId:int}")]
+    public async Task<IActionResult> DeleteProject([FromRoute] int projectId)
     {
         int? userId = User.GetUserId();
         if (userId is null) return Unauthorized();
 
-        var response = await _projectService.DeleteProjectAsync((int)userId, request);
+        var response = await _projectService.DeleteProjectAsync((int)userId, projectId);
         return response.ToHttpResponse();
     }
 }
