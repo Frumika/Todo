@@ -1,0 +1,28 @@
+.projects-panel__header {
+    flex-shrink: 0;
+
+    padding: 10px 10px 6px 10px;
+}
+
+.projects-panel__title {
+    margin: 0;
+
+    font-family: "Roboto Light", sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+
+    color: #5A3824;
+}
+
+.projects-panel__middle {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+}
+
+.projects-panel__footer {
+    flex-shrink: 0;
+
+    padding: 10px 10px 14px 10px;
+}

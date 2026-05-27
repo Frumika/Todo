@@ -5,8 +5,6 @@
     height: 100vh;
     width: 250px;
 
-    padding: 0 10px 0 10px;
-
     background: white;
 }
 
@@ -15,6 +13,6 @@
     flex-direction: column;
     align-items: stretch;
 
-    padding: 15px 0 0 0;
+    padding: 15px 10px 0 10px;
     gap: 5px;
 }

@@ -4,7 +4,7 @@
 import {Component} from "../../ui/Component.js";
 import {Button} from "../../ui/button/Button.js";
 import {AuthService} from "../../services/AuthService.js";
-import {ProjectItem} from "../../ui/projectItem/ProjectItem.js";
+import {ProjectsPanel} from "../projectsPanel/ProjectsPanel.js";
 
 export class LeftAside extends Component {
     props = {
@@ -34,8 +34,11 @@ export class LeftAside extends Component {
         } else {
             this.createUnauthorizedButtons(auth);
         }
-
         leftAsideContainer.append(auth);
+
+
+        // const projectPanel = new ProjectsPanel();
+        // projectPanel.mount(leftAsideContainer)
 
         leftAside.append(leftAsideContainer);
 
@@ -61,19 +64,6 @@ export class LeftAside extends Component {
             .hasActiveBackground()
             .onClick(() => this.props.onRegister());
         registerButton.mount(container);
-
-        const firstProject = new ProjectItem().setProps({
-            text: "111111111111111111111111111Project",
-            isSelected: false
-        })
-        firstProject.mount(container);
-
-        const secondProject = new ProjectItem().setProps({
-            text: "2Project",
-            isSelected: true
-        })
-        secondProject.mount(container);
-
 
     }
 
