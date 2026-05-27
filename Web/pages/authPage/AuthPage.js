@@ -16,7 +16,7 @@ export class AuthPage extends Component {
 
     render() {
         const loginPage = document.createElement("div");
-        loginPage.className = "services-page";
+        loginPage.className = "auth-page";
 
         const header = this.createHeader();
         const main = this.createMain();
@@ -29,7 +29,7 @@ export class AuthPage extends Component {
 
     createHeader() {
         const header = document.createElement("div");
-        header.className = "services-page__header";
+        header.className = "auth-page__header";
 
         const backButton = new Button()
             .setIcon("../../assets/back.svg")
@@ -45,10 +45,10 @@ export class AuthPage extends Component {
 
     createMain() {
         const main = document.createElement("div");
-        main.className = "services-page__main";
+        main.className = "auth-page__main";
 
         const loginContainer = document.createElement("div");
-        loginContainer.className = "services-page__main-container";
+        loginContainer.className = "auth-page__main-container";
 
         const headerContainer = this.createHeaderContainer();
         const inputContainer = this.createInputContainer();
@@ -62,10 +62,10 @@ export class AuthPage extends Component {
 
     createHeaderContainer() {
         const container = document.createElement("div");
-        container.className = "services-page__header-container";
+        container.className = "auth-page__header-container";
 
         const text = document.createElement("h2");
-        text.className = "services-page__header-text";
+        text.className = "auth-page__header-text";
         text.textContent = this.props.headerText;
         container.append(text)
 
@@ -74,7 +74,7 @@ export class AuthPage extends Component {
 
     createButtonContainer() {
         const container = document.createElement("div");
-        container.className = "services-page__button-container";
+        container.className = "auth-page__button-container";
 
         const submitButton = new Button()
             .setIcon(this.props.iconSrc)

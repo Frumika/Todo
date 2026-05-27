@@ -10,7 +10,7 @@ export class RegisterPage extends AuthPage {
 
     createInputContainer() {
         const container = document.createElement("div");
-        container.className = "services-page__input-container";
+        container.className = "auth-page__input-container";
 
         this.#loginInput = new Input()
             .setProps({
