@@ -9,6 +9,7 @@
 @import "pages/mainPage/mainPage.css";
 @import "pages/authPage/authPage.css";
 @import "ui/input/input.css";
+@import "ui/projectItem/projectItem.css";
 
 
 * {

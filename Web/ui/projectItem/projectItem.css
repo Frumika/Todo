@@ -1,0 +1,46 @@
+.project-item {
+    background-color: transparent;
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    min-height: 35px;
+
+    padding: 5px 8px;
+
+    cursor: pointer;
+    user-select: none;
+
+    transition: background-color 0.15s ease;
+}
+
+.project-item:hover {
+    background-color: #FFF1E7;
+}
+
+.project-item--selected {
+    background-color: #FFD8BC;
+}
+
+.project-item--selected:hover {
+    background-color: #FFD0AF;
+}
+
+.project-item__text {
+    font-family: "Roboto Light", sans-serif;
+
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1;
+
+    color: #5A3824;
+
+    margin: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

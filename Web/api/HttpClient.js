@@ -1,4 +1,4 @@
-import {AuthStorage} from "../auth/AuthStorage.js";
+import {AuthStorage} from "../storage/AuthStorage.js";
 
 
 const REFRESH_URL = "http://localhost:8801/api/auth/refresh";
@@ -96,6 +96,16 @@ export class HttpClient {
     static async put(url, body) {
         return await this.send(url, {
             method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        });
+    }
+
+    static async patch(url, body){
+        return await this.send(url, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },

@@ -1,7 +1,7 @@
 import {Component} from "../../ui/Component.js";
 import {LeftAside} from "../../components/leftAside/LeftAside.js";
 import {Content} from "../../components/content/Content.js";
-import {AuthService} from "../../auth/AuthService.js";
+import {AuthService} from "../../services/AuthService.js";
 
 export class MainPage extends Component {
     props = {

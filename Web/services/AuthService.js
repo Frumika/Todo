@@ -1,5 +1,5 @@
 import {AuthApi} from "../api/AuthApi.js";
-import {AuthStorage} from "./AuthStorage.js";
+import {AuthStorage} from "../storage/AuthStorage.js";
 
 export class AuthService {
     static async login(login, password) {

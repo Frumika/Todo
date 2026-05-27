@@ -1,6 +1,6 @@
 "use strict"
 
-import {AuthStorage} from "../auth/AuthStorage.js";
+import {AuthStorage} from "../storage/AuthStorage.js";
 import {HttpClient} from "./HttpClient.js";
 
 const BASE_URL = "http://localhost:8801/api/auth";

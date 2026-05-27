@@ -3,7 +3,8 @@
 
 import {Component} from "../../ui/Component.js";
 import {Button} from "../../ui/button/Button.js";
-import {AuthService} from "../../auth/AuthService.js";
+import {AuthService} from "../../services/AuthService.js";
+import {ProjectItem} from "../../ui/projectItem/ProjectItem.js";
 
 export class LeftAside extends Component {
     props = {
@@ -59,8 +60,21 @@ export class LeftAside extends Component {
             .setBackColor("white")
             .hasActiveBackground()
             .onClick(() => this.props.onRegister());
-
         registerButton.mount(container);
+
+        const firstProject = new ProjectItem().setProps({
+            text: "111111111111111111111111111Project",
+            isSelected: false
+        })
+        firstProject.mount(container);
+
+        const secondProject = new ProjectItem().setProps({
+            text: "2Project",
+            isSelected: true
+        })
+        secondProject.mount(container);
+
+
     }
 
     createAuthorizedButtons(container) {
