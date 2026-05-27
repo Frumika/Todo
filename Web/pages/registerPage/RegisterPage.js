@@ -1,34 +1,58 @@
 import {Input} from "../../ui/input/Input.js";
 import {PasswordInput} from "../../ui/input/PasswordInput.js";
 import {AuthPage} from "../authPage/AuthPage.js";
+import {AuthService} from "../../auth/AuthService.js";
 
 export class RegisterPage extends AuthPage {
+    #loginInput;
+    #passwordInput;
+    #confirmPasswordInput;
+
     createInputContainer() {
         const container = document.createElement("div");
         container.className = "auth-page__input-container";
 
-        const loginInput = new Input()
+        this.#loginInput = new Input()
             .setProps({
                 placeholder: "Логин",
             });
-        loginInput.mount(container);
+        this.#loginInput.mount(container);
 
-        const passwordInput = new PasswordInput();
-        const confirmPasswordInput = new PasswordInput();
+        this.#passwordInput = new PasswordInput();
+        this.#confirmPasswordInput = new PasswordInput();
 
-        passwordInput.setProps({
+        this.#passwordInput.setProps({
             placeholder: "Пароль",
-            onToggle: () => confirmPasswordInput.switchType(),
+            onToggle: () => this.#confirmPasswordInput.switchType(),
         });
 
-        confirmPasswordInput.setProps({
+        this.#confirmPasswordInput.setProps({
             placeholder: "Подтвердите пароль",
-            onToggle: () => passwordInput.switchType(),
+            onToggle: () => this.#passwordInput.switchType(),
         });
 
-        passwordInput.mount(container);
-        confirmPasswordInput.mount(container);
+        this.#passwordInput.mount(container);
+        this.#confirmPasswordInput.mount(container);
 
         return container;
+    }
+
+    async onSubmit() {
+        const login = this.#loginInput.getValue();
+        const password = this.#passwordInput.getValue();
+        const confirmPassword = this.#confirmPasswordInput.getValue();
+
+        const response = await AuthService.register(
+            login,
+            password,
+        );
+
+        if (!response.ok) {
+            console.log(response.data);
+            return;
+        }
+
+        console.log("Register success");
+        this.props.onBack();
     }
 }
