@@ -10,7 +10,8 @@ export class Router {
     #mainPage = new MainPage()
         .setProps({
             onLogin: () => this.navigate('login'),
-            onRegister: () => this.navigate('register')
+            onRegister: () => this.navigate('register'),
+            onLogout: () => this.navigate("main"),
         });
 
     #loginPage = new LoginPage()

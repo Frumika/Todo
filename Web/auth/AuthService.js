@@ -13,11 +13,11 @@ export class AuthService {
         }
 
         AuthStorage.setAccessToken(
-            response.data.accessToken,
+            response.data.data.accessToken,
         );
 
         AuthStorage.setRefreshToken(
-            response.data.refreshToken,
+            response.data.data.refreshToken,
         );
 
         return response;
@@ -43,7 +43,6 @@ export class AuthService {
 
     static async logout() {
         const response = await AuthApi.logout();
-
         AuthStorage.clear();
 
         return response;

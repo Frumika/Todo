@@ -3,13 +3,18 @@
 
 import {Component} from "../../ui/Component.js";
 import {Button} from "../../ui/button/Button.js";
+import {AuthService} from "../../auth/AuthService.js";
 
 export class LeftAside extends Component {
     props = {
         onLogin: () => {
         },
         onRegister: () => {
-        }
+        },
+        onProfile: () => {
+        },
+        onLogout: async () => {
+        },
     }
 
     render() {
@@ -17,19 +22,35 @@ export class LeftAside extends Component {
         leftAside.className = "left-aside";
 
         const leftAsideContainer = document.createElement("div");
-        leftAsideContainer.className = "left-aside__container";
+        leftAsideContainer.className =
+            "left-aside__container";
 
         const auth = document.createElement("div");
-        auth.className = "auth"
+        auth.className = "auth";
 
+        if (AuthService.isAuthorized()) {
+            this.createAuthorizedButtons(auth);
+        } else {
+            this.createUnauthorizedButtons(auth);
+        }
+
+        leftAsideContainer.append(auth);
+
+        leftAside.append(leftAsideContainer);
+
+        return leftAside;
+    }
+
+    createUnauthorizedButtons(container) {
         const loginButton = new Button()
             .setIcon("../../assets/login.svg")
             .setText("Вход")
             .setFontColor("#202020")
             .setBackColor("white")
             .hasActiveBackground()
-            .onClick(() => this.props.onLogin())
-        loginButton.mount(auth);
+            .onClick(() => this.props.onLogin());
+
+        loginButton.mount(container);
 
         const registerButton = new Button()
             .setIcon("../../assets/register.svg")
@@ -37,13 +58,33 @@ export class LeftAside extends Component {
             .setFontColor("#202020")
             .setBackColor("white")
             .hasActiveBackground()
-            .onClick(() => this.props.onRegister())
-        registerButton.mount(auth);
+            .onClick(() => this.props.onRegister());
 
-        leftAsideContainer.append(auth);
-        leftAside.append(leftAsideContainer);
+        registerButton.mount(container);
+    }
 
-        return leftAside;
+    createAuthorizedButtons(container) {
+        const profileButton = new Button()
+            .setIcon("../../assets/profile.svg")
+            .setText("Профиль")
+            .setFontColor("#202020")
+            .setBackColor("white")
+            .hasActiveBackground()
+            .onClick(() => this.props.onProfile());
+
+        profileButton.mount(container);
+
+        const logoutButton = new Button()
+            .setIcon("../../assets/logout.svg")
+            .setText("Выйти")
+            .setFontColor("#202020")
+            .setBackColor("white")
+            .hasActiveBackground()
+            .onClick(async () => {
+                await this.props.onLogout();
+            });
+
+        logoutButton.mount(container);
     }
 
 }
