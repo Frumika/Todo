@@ -1,6 +1,8 @@
 import {Component} from "../Component.js";
 
 export class Input extends Component {
+    #inputElement;
+
     props = {
         placeholder: null,
         value: "",
@@ -10,15 +12,21 @@ export class Input extends Component {
 
     render() {
         const container = this.createContainer();
-        const input = this.createInputElement();
+        this.#inputElement = this.createInputElement();
 
-        container.append(input);
+        container.append(this.#inputElement);
+
         return container;
+    }
+
+    getValue() {
+        return this.#inputElement.value;
     }
 
     createContainer() {
         const container = document.createElement("div");
         container.className = "input-container";
+
         return container;
     }
 
@@ -31,6 +39,12 @@ export class Input extends Component {
         }
 
         input.value = this.props.value ?? "";
+
+        input.addEventListener("input", () => {
+            this.props.value = input.value;
+
+            this.props.onSendData(input.value);
+        });
 
         return input;
     }

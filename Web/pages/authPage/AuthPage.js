@@ -12,8 +12,6 @@ export class AuthPage extends Component {
 
         onBack: () => {
         },
-        onAction: () => {
-        },
     }
 
     render() {
@@ -62,7 +60,6 @@ export class AuthPage extends Component {
         return main;
     }
 
-
     createHeaderContainer() {
         const container = document.createElement("div");
         container.className = "auth-page__header-container";
@@ -75,24 +72,28 @@ export class AuthPage extends Component {
         return container;
     }
 
-    createInputContainer() {
-        throw new Error("Method createInputContainer() must be implemented");
-        return null;
-    }
-
     createButtonContainer() {
         const container = document.createElement("div");
         container.className = "auth-page__button-container";
 
-        const loginButton = new Button()
+        const submitButton = new Button()
             .setIcon(this.props.iconSrc)
             .setText(this.props.buttonText)
             .setFontColor("white")
             .setBackColor("#D33322")
             .hasActiveBackground()
-            .onClick(() => this.props.onLogin())
-        loginButton.mount(container);
+            .onClick(async () => await this.onSubmit())
+        submitButton.mount(container);
 
         return container;
+    }
+
+    createInputContainer() {
+        throw new Error("Method createInputContainer() must be implemented");
+        return null;
+    }
+
+    async onSubmit() {
+        throw new Error("Method onSubmit() must be implemented");
     }
 }
