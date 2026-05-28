@@ -28,7 +28,7 @@ export class TodoApi {
 
     static async deleteTodo(itemId) {
         return await HttpClient.delete(
-            `${BASE_URL}/all/${itemId}`,
+            `${BASE_URL}/delete/${itemId}`,
         );
     }
 }

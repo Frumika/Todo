@@ -3,17 +3,16 @@
 
 import {Component} from "../../ui/Component.js";
 import {TodoItem} from "../todoItem/TodoItem.js";
-import {TodoStorage} from "../../storage/TodoStorage.js";
-import {TodoService} from "../../services/TodoService.js";
+import {TodoApi} from "../../api/TodoApi.js";
 
 export class TodoContainer extends Component {
     #todoItems = new Map();
     container = null;
+    projectId = null;
 
     props = {
-        todos: TodoStorage.load()
+        todos: []
     };
-
 
     render() {
         const main = document.createElement("div");
@@ -28,25 +27,34 @@ export class TodoContainer extends Component {
         return main;
     }
 
-    async init(projectId = null) {
+    async setProject(projectId) {
+        if (!projectId) return;
+
         this.projectId = projectId;
 
-        const response = await TodoService.getTodos(projectId);
+        const response = await TodoApi.getTodos(projectId);
 
         if (!response.ok) {
             console.log(response.data);
             return;
         }
 
-        this.props.todos = response.data ?? [];
+        this.props.todos = (response.data.data ?? []).map(todo => ({
+            ...todo,
+            mode: "read"
+        }));
+
+        console.log("TODOS");
+        console.log(this.props.todos);
 
         this.updateList();
     }
 
-    updateList({focusId = null, scrollMode = "nearest"} = {}) {
+    updateList({ focusId = null, scrollMode = "nearest" } = {}) {
         const existingIds = new Set(this.#todoItems.keys());
         const newIds = new Set(this.props.todos.map(t => t.id));
 
+        // remove
         existingIds.forEach(id => {
             if (!newIds.has(id)) {
                 const comp = this.#todoItems.get(id);
@@ -56,23 +64,21 @@ export class TodoContainer extends Component {
             }
         });
 
+        // create / update
         this.props.todos.forEach((todo, index) => {
-            let comp = this.#todoItems.get(todo.id);
+            let todoItem = this.#todoItems.get(todo.id);
 
-            // Удаление
-            if (!comp) {
-                comp = new TodoItem();
-                this.#todoItems.set(todo.id, comp);
-
-                comp.mount(this.container);
+            if (!todoItem) {
+                todoItem = new TodoItem();
+                this.#todoItems.set(todo.id, todoItem);
+                todoItem.mount(this.container);
             }
 
-            // Создание \ Обновление
-            comp.setProps({
+            todoItem.setProps({
                 id: todo.id,
                 title: todo.title,
                 description: todo.description,
-                isComplete: todo.isComplete,
+                isCompleted: todo.isCompleted,
                 mode: todo.mode,
 
                 onToggle: (id) => this.#handleToggle(id),
@@ -81,88 +87,71 @@ export class TodoContainer extends Component {
                 onSave: (id, data) => this.#handleSave(id, data),
             });
 
-            comp.rerender();
+            console.log("TODO ITEM")
+            console.log(todoItem);
 
-            const currentNode = comp.elem;
+            todoItem.rerender();
+
+            const currentNode = todoItem.elem;
             const expectedNode = this.container.children[index];
 
             if (currentNode !== expectedNode) {
                 this.container.insertBefore(currentNode, expectedNode || null);
             }
 
-
-            // Фокус на активном элементе
-            if (focusId) {
-                const comp = this.#todoItems.get(focusId);
-
-                if (comp?.elem) {
-                    comp.elem.scrollIntoView({
-                        block: scrollMode,
-                        behavior: "auto"
-                    });
-                }
+            if (focusId === todo.id && todoItem?.elem) {
+                todoItem.elem.scrollIntoView({
+                    block: scrollMode,
+                    behavior: "auto"
+                });
             }
         });
     }
 
-    #commit(id = null) {
-        TodoStorage.save(this.props.todos);
-        this.updateList({focusId: id});
-    }
+    async addTodoItem() {
+        if (!this.projectId) return;
 
-    addTodoItem() {
-        const newTodo = {
-            id: crypto.randomUUID(),
+        await TodoApi.createTodo(this.projectId, {
             title: "",
-            description: "",
-            isComplete: false,
-            mode: "edit"
-        };
+            description: ""
+        });
 
-        this.props.todos = [
-            ...this.props.todos.map(todo => ({...todo, mode: "read"})),
-            newTodo
-        ];
-
-        this.#commit(newTodo.id);
+        await this.setProject(this.projectId);
     }
 
     #handleToggle(id) {
-        this.props.todos = this.props.todos.map(todo =>
-            todo.id === id
-                ? {...todo, isComplete: !todo.isComplete}
-                : todo
-        );
+        const todo = this.props.todos.find(t => t.id === id);
+        if (!todo) return;
 
-        this.#commit(id);
+        TodoApi.updateTodo({
+            todoItemId: id,
+            title: todo.title,
+            description: todo.description,
+            isCompleted: !todo.isCompleted
+        }).then(() => this.setProject(this.projectId));
     }
 
     #handleEdit(id) {
         this.props.todos = this.props.todos.map(todo =>
             todo.id === id
-                ? {...todo, mode: "edit"}
-                : {...todo, mode: "read"}
+                ? { ...todo, mode: "edit" }
+                : { ...todo, mode: "read" }
         );
-        this.#commit(id);
+
+        this.updateList();
     }
 
     #handleSave(id, data) {
-        this.props.todos = this.props.todos.map(todo =>
-            todo.id === id
-                ? {
-                    ...todo,
-                    title: data.title,
-                    description: data.description,
-                    mode: "read"
-                }
-                : todo
-        );
-
-        this.#commit(id);
+        TodoApi.updateTodo({
+            todoItemId: id,
+            title: data.title,
+            description: data.description,
+            isCompleted: this.props.todos.find(t => t.id === id)?.isCompleted ?? false
+        }).then(() => this.setProject(this.projectId));
     }
 
     #handleDelete(id) {
-        this.props.todos = this.props.todos.filter(todo => todo.id !== id);
-        this.#commit();
+        TodoApi.deleteTodo(id)
+            .then(() => this.setProject(this.projectId));
     }
 }

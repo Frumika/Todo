@@ -5,6 +5,13 @@ import {Header} from "../header/Header.js";
 import {TodoContainer} from "../main/TodoContainer.js";
 
 export class Content extends Component {
+    #header;
+    #todoContainer;
+
+    props = {
+        selectedProject: null,
+    }
+
     render() {
         const content = document.createElement("div");
         content.className = "content";
@@ -14,16 +21,28 @@ export class Content extends Component {
 
         content.append(contentContainer);
 
-        const main = new TodoContainer();
-        const header = new Header()
+        this.#todoContainer = new TodoContainer();
+        this.#header = new Header()
             .setProps({
                 projectName: "Текущий проект",
-                onAdd: () => main.addTodoItem()
+                onAdd: () => this.#todoContainer.addTodoItem()
             });
 
-        header.mount(contentContainer);
-        main.mount(contentContainer)
+        this.#header.mount(contentContainer);
+        this.#todoContainer.mount(contentContainer)
 
         return content;
+    }
+
+    onProjectSelected(project) {
+        this.selectedProject = project;
+
+        this.#header.setProps({
+            projectName: project.name,
+        });
+
+        this.#header.rerender?.();
+
+        this.#todoContainer.setProject(project.id);
     }
 }

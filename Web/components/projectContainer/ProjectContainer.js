@@ -12,7 +12,7 @@ export class ProjectsContainer extends Component {
         projects: [],
         selectedProjectId: null,
 
-        onSelect: (projectId) => {
+        onSelect: (project) => {
         },
     };
 
@@ -83,7 +83,10 @@ export class ProjectsContainer extends Component {
 
                 isSelected: project.id === this.props.selectedProjectId,
 
-                onClick: (id) => this.#handleSelect(id),
+                onClick: () =>{
+                    this.#handleSelect(project)
+                    // console.log(project)
+                },
                 onSave: (id, text) => this.#handleSave(id, text),
             });
 
@@ -123,10 +126,10 @@ export class ProjectsContainer extends Component {
         newItem?.startEditing();
     }
 
-    #handleSelect(id) {
-        this.props.selectedProjectId = id;
+    #handleSelect(project) {
+        this.props.selectedProjectId = project.id;
         this.updateList();
-        this.props.onSelect(id);
+        this.props.onSelect(project);
     }
 
     async #handleSave(id, text) {

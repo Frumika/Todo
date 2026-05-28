@@ -14,7 +14,7 @@ export class TodoItem extends Component {
         id: null,
         title: "",
         description: "",
-        isComplete: false,
+        isCompleted: false,
         mode: "edit",
 
         onToggle: () => {
@@ -54,7 +54,7 @@ export class TodoItem extends Component {
             container.classList.add("todo-item--edit");
             this.#renderEdit(container);
         } else {
-            if (!this.props.isComplete) container.classList.add("todo-item--read");
+            if (!this.props.isCompleted) container.classList.add("todo-item--read");
             this.#renderView(container);
         }
 
@@ -63,7 +63,7 @@ export class TodoItem extends Component {
 
     #bindHandlers() {
         this.#checkbox
-            .isActive(this.props.isComplete)
+            .isActive(this.props.isCompleted)
             .onToggle(() => this.props.onToggle(this.props.id));
 
         this.#deleteButton
@@ -107,9 +107,9 @@ export class TodoItem extends Component {
         const controlContainer = this.#createControlContainer();
         const textContainer = this.#createTextContainer();
 
-        const isComplete = this.props.isComplete;
-        const title = this.#createText("h2", "text-container__title", this.props.title, isComplete);
-        const description = this.#createText("p", "text-container__description", this.props.description, isComplete);
+        const isCompleted = this.props.isCompleted;
+        const title = this.#createText("h2", "text-container__title", this.props.title, isCompleted);
+        const description = this.#createText("p", "text-container__description", this.props.description, isCompleted);
 
         textContainer.append(title, description);
 
@@ -121,7 +121,7 @@ export class TodoItem extends Component {
         container.append(controlContainer, dividingLine);
 
 
-        if (!isComplete) {
+        if (!isCompleted) {
             this.#addListeners(container);
         }
     }
@@ -158,11 +158,11 @@ export class TodoItem extends Component {
         return input;
     }
 
-    #createText(tag, className, text, isComplete) {
+    #createText(tag, className, text, isCompleted) {
         const el = document.createElement(tag);
         el.className = className;
 
-        if (isComplete) {
+        if (isCompleted) {
             el.classList.add("text-container--through");
         }
 

@@ -5,10 +5,14 @@ import {AuthService} from "../../services/AuthService.js";
 
 export class MainPage extends Component {
     props = {
-        onLogin: () => {},
-        onRegister: () => {},
-        onProfile: () => {},
-        onLogout: () => {},
+        onLogin: () => {
+        },
+        onRegister: () => {
+        },
+        onProfile: () => {
+        },
+        onLogout: () => {
+        },
     }
 
     render() {
@@ -23,6 +27,9 @@ export class MainPage extends Component {
                 onLogout: async () => {
                     await AuthService.logout();
                     this.props.onLogout();
+                },
+                onSelectProject: (project) => {
+                    content.onProjectSelected(project);
                 },
             });
 

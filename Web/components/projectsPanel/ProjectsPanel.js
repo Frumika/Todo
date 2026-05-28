@@ -7,7 +7,7 @@ export class ProjectPanel extends Component {
     #projectsContainer = null;
 
     props = {
-        onSelectProject: (projectId) => {
+        onSelectProject: (project) => {
         },
     };
 
@@ -31,7 +31,10 @@ export class ProjectPanel extends Component {
 
         this.#projectsContainer = new ProjectsContainer()
             .setProps({
-                onSelect: (projectId) => this.props.onSelectProject(projectId),
+                onSelect: (project) => {
+                    this.props.onSelectProject(project);
+                    // console.log(project);
+                },
             });
         this.#projectsContainer.mount(containerWrapper);
         this.#projectsContainer.init();

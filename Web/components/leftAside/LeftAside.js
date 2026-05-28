@@ -17,7 +17,7 @@ export class LeftAside extends Component {
         onLogout: async () => {
         },
 
-        onSelectProject: (projectId) => {},
+        onSelectProject: (project) => {},
     }
 
     render() {
@@ -43,7 +43,10 @@ export class LeftAside extends Component {
         if (isAuthorized) {
             const projectPanel = new ProjectPanel()
                 .setProps({
-                    onSelectProject: (projectId) => this.props.onSelectProject(projectId),
+                    onSelectProject: (project) => {
+                        this.props.onSelectProject(project);
+                        // console.log(project);
+                    },
                 });
             projectPanel.mount(leftAsideContainer);
         }
@@ -96,5 +99,4 @@ export class LeftAside extends Component {
             });
         logoutButton.mount(container);
     }
-
 }
