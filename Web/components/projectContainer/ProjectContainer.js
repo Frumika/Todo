@@ -12,7 +12,7 @@ export class ProjectsContainer extends Component {
         projects: [],
         selectedProjectId: null,
 
-        onSelect: () => {
+        onSelect: (projectId) => {
         },
     };
 
@@ -125,12 +125,8 @@ export class ProjectsContainer extends Component {
 
     #handleSelect(id) {
         this.props.selectedProjectId = id;
-
         this.updateList();
-
-        const project = this.props.projects.find(p => p.id === id);
-
-        this.props.onSelect(project);
+        this.props.onSelect(id);
     }
 
     async #handleSave(id, text) {

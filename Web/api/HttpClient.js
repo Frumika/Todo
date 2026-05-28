@@ -34,6 +34,8 @@ export class HttpClient {
     }
 
     static async #refreshTokens() {
+        console.log("REFRESH REQUEST");
+
         const refreshToken = AuthStorage.getRefreshToken();
 
         const response = await fetch(REFRESH_URL, {

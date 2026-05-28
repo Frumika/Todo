@@ -5,8 +5,6 @@ import {Component} from "../../ui/Component.js";
 import {Button} from "../../ui/button/Button.js";
 import {AuthService} from "../../services/AuthService.js";
 import {ProjectPanel} from "../projectsPanel/ProjectsPanel.js";
-import {ProjectsContainer} from "../projectContainer/ProjectContainer.js";
-import {ProjectItem} from "../../ui/projectItem/ProjectItem.js";
 
 export class LeftAside extends Component {
     props = {
@@ -18,6 +16,8 @@ export class LeftAside extends Component {
         },
         onLogout: async () => {
         },
+
+        onSelectProject: (projectId) => {},
     }
 
     render() {
@@ -41,7 +41,10 @@ export class LeftAside extends Component {
         leftAsideContainer.append(auth);
 
         if (isAuthorized) {
-            const projectPanel = new ProjectPanel();
+            const projectPanel = new ProjectPanel()
+                .setProps({
+                    onSelectProject: (projectId) => this.props.onSelectProject(projectId),
+                });
             projectPanel.mount(leftAsideContainer);
         }
 
