@@ -4,9 +4,9 @@
 import {Component} from "../../ui/Component.js";
 import {TodoItem} from "../todoItem/TodoItem.js";
 import {TodoStorage} from "../../storage/TodoStorage.js";
-import {Button} from "../../ui/button/Button.js";
+import {TodoService} from "../../services/TodoService.js";
 
-export class Main extends Component {
+export class TodoContainer extends Component {
     #todoItems = new Map();
     container = null;
 
@@ -17,15 +17,30 @@ export class Main extends Component {
 
     render() {
         const main = document.createElement("div");
-        main.className = "main";
+        main.className = "todo-container";
 
         this.container = document.createElement("div");
-        this.container.className = "main-container";
+        this.container.className = "todo-container__container";
 
         main.append(this.container);
         this.updateList();
 
         return main;
+    }
+
+    async init(projectId = null) {
+        this.projectId = projectId;
+
+        const response = await TodoService.getTodos(projectId);
+
+        if (!response.ok) {
+            console.log(response.data);
+            return;
+        }
+
+        this.props.todos = response.data ?? [];
+
+        this.updateList();
     }
 
     updateList({focusId = null, scrollMode = "nearest"} = {}) {

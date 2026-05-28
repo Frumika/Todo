@@ -56,8 +56,16 @@ export class HttpClient {
 
         const data = await response.json();
 
-        AuthStorage.setAccessToken(data.accessToken);
-        AuthStorage.setRefreshToken(data.refreshToken);
+        console.log(data);
+
+        const newAccessToken = data.data.accessToken;
+        const newRefreshToken = data.data.refreshToken;
+
+        console.log(newAccessToken);
+        console.log(newRefreshToken);
+
+        AuthStorage.setAccessToken(newAccessToken);
+        AuthStorage.setRefreshToken(newRefreshToken);
 
         return {
             success: true,
@@ -105,7 +113,7 @@ export class HttpClient {
         });
     }
 
-    static async patch(url, body){
+    static async patch(url, body) {
         return await this.send(url, {
             method: "PATCH",
             headers: {

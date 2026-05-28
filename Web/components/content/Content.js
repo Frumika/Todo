@@ -2,7 +2,7 @@
 
 import {Component} from "../../ui/Component.js";
 import {Header} from "../header/Header.js";
-import {Main} from "../main/Main.js";
+import {TodoContainer} from "../main/TodoContainer.js";
 
 export class Content extends Component {
     render() {
@@ -14,7 +14,7 @@ export class Content extends Component {
 
         content.append(contentContainer);
 
-        const main = new Main();
+        const main = new TodoContainer();
         const header = new Header()
             .setProps({
                 projectName: "Текущий проект",

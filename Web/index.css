@@ -3,7 +3,7 @@
 @import "components/header/header.css";
 @import "ui/checkbox/checkbox.css";
 @import "components/todoItem/todoItem.css";
-@import "components/main/main.css";
+@import "components/main/todoContainer.css";
 @import "components/content/content.css";
 @import "components/leftAside/leftAside.css";
 @import "pages/mainPage/mainPage.css";
