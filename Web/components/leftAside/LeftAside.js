@@ -4,7 +4,9 @@
 import {Component} from "../../ui/Component.js";
 import {Button} from "../../ui/button/Button.js";
 import {AuthService} from "../../services/AuthService.js";
-import {ProjectsPanel} from "../projectsPanel/ProjectsPanel.js";
+import {ProjectPanel} from "../projectsPanel/ProjectsPanel.js";
+import {ProjectsContainer} from "../projectContainer/ProjectContainer.js";
+import {ProjectItem} from "../../ui/projectItem/ProjectItem.js";
 
 export class LeftAside extends Component {
     props = {
@@ -29,16 +31,19 @@ export class LeftAside extends Component {
         const auth = document.createElement("div");
         auth.className = "auth";
 
-        if (AuthService.isAuthorized()) {
+        const isAuthorized = AuthService.isAuthorized()
+
+        if (isAuthorized) {
             this.createAuthorizedButtons(auth);
         } else {
             this.createUnauthorizedButtons(auth);
         }
         leftAsideContainer.append(auth);
 
-
-        // const projectPanel = new ProjectsPanel();
-        // projectPanel.mount(leftAsideContainer)
+        if (isAuthorized) {
+            const projectPanel = new ProjectPanel();
+            projectPanel.mount(leftAsideContainer);
+        }
 
         leftAside.append(leftAsideContainer);
 
@@ -75,7 +80,6 @@ export class LeftAside extends Component {
             .setBackColor("white")
             .hasActiveBackground()
             .onClick(() => this.props.onProfile());
-
         profileButton.mount(container);
 
         const logoutButton = new Button()
@@ -87,7 +91,6 @@ export class LeftAside extends Component {
             .onClick(async () => {
                 await this.props.onLogout();
             });
-
         logoutButton.mount(container);
     }
 

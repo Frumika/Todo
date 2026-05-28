@@ -1,28 +1,52 @@
-.projects-panel__header {
-    flex-shrink: 0;
+.project-panel {
+    display: flex;
+    flex-direction: column;
 
-    padding: 10px 10px 6px 10px;
+    height: 100%;
+    min-height: 0;
+
+    padding: 0 10px;
+
+    box-sizing: border-box;
+
+    min-width: 0;
 }
 
-.projects-panel__title {
+.project-panel__header {
+    flex-shrink: 0;
+
+    padding: 10px 0 6px 0;
+}
+
+.project-panel__title {
     margin: 0;
 
     font-family: "Roboto Light", sans-serif;
-    font-size: 22px;
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: 600;
 
-    color: #5A3824;
+    color: #5a3824;
 }
 
-.projects-panel__middle {
+.project-panel__container {
     flex: 1;
     min-height: 0;
+    min-width: 0;
+
+    width: 100%;
+
+    overflow-y: auto;
+    overflow-x: hidden;
 
     display: flex;
 }
 
-.projects-panel__footer {
+.project-panel__footer {
     flex-shrink: 0;
 
-    padding: 10px 10px 14px 10px;
+    padding: 10px 0 16px 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }

@@ -9,9 +9,9 @@
 @import "pages/mainPage/mainPage.css";
 @import "pages/authPage/authPage.css";
 @import "ui/input/input.css";
-/*@import "ui/projectItem/projectItem.css";*/
-/*@import "components/projectContainer/projectContainer.css";*/
-/*@import "components/projectsPanel/projectPanel.css";*/
+@import "ui/projectItem/projectItem.css";
+@import "components/projectContainer/projectContainer.css";
+@import "components/projectsPanel/projectPanel.css";
 
 
 * {

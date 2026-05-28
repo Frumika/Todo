@@ -1,3 +1,16 @@
+.projects {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    min-height: 0;
+    height: 100%;
+
+    background: white;
+
+    width: 100%;
+}
+
 .projects-container {
     display: flex;
     flex-direction: column;
@@ -9,7 +22,5 @@
 
     gap: 4px;
 
-    padding: 10px 10px 0 10px;
-
-    margin-top: 20px;
+    width: 100%;
 }

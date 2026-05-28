@@ -2,57 +2,46 @@ import {Component} from "../../ui/Component.js";
 import {ProjectsContainer} from "../projectContainer/ProjectContainer.js";
 import {Button} from "../../ui/button/Button.js";
 
-export class ProjectsPanel extends Component {
-    #container;
-    #projectsContainer;
+export class ProjectPanel extends Component {
 
-    props = {
-
-        onSelect: () => {
-        },
-    };
+    #projectsContainer = null;
 
     render() {
         const wrapper = document.createElement("div");
-        wrapper.className = "projects-panel";
+        wrapper.className = "project-panel";
 
         // header
         const header = document.createElement("div");
-        header.className = "projects-panel__header";
+        header.className = "project-panel__header";
 
-        const title = document.createElement("h2");
-        title.className = "projects-panel__title";
+        const title = document.createElement("h3");
+        title.className = "project-panel__title";
         title.textContent = "Проекты";
 
         header.append(title);
 
-        // middle
-        this.#projectsContainer = new ProjectsContainer()
-            .setProps({
-                onSelect: () => this.props.onSelect()
-            });
+        // container
+        const containerWrapper = document.createElement("div");
+        containerWrapper.className = "project-panel__container";
 
-        const middle = document.createElement("div");
-        middle.className = "projects-panel__middle";
+        this.#projectsContainer = new ProjectsContainer();
+        this.#projectsContainer.mount(containerWrapper);
+        this.#projectsContainer.init();
 
-        this.#projectsContainer.mount(middle);
-
-
+        // footer (button area)
         const footer = document.createElement("div");
-        footer.className = "projects-panel__footer";
+        footer.className = "project-panel__footer";
 
         const addButton = new Button()
+            .setIcon("../../assets/add.svg")
             .setText("Добавить проект")
-            .setFontColor("#5A3824")
-            .setBackColor("#FFE3CF")
+            .setFontColor("white")
+            .setBackColor("#D33322")
             .hasActiveBackground()
             .onClick(() => this.#projectsContainer.addProject());
-
         addButton.mount(footer);
 
-        wrapper.append(header, middle, footer);
-
-        this.#container = wrapper;
+        wrapper.append(header, containerWrapper, footer);
 
         return wrapper;
     }
