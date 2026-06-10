@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
+using Backend.API.Background;
 using Backend.Application.Services;
 using Backend.DataAccess.MySQL.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -53,6 +54,9 @@ public static class ServiceCollectionExtensions
             services.AddScoped<AuthService>();
             services.AddScoped<ProjectService>();
             services.AddScoped<TodoItemService>();
+            services.AddScoped<CleanupService>();
+
+            services.AddHostedService<CleanupBackgroundService>();
 
             return services;
         }
