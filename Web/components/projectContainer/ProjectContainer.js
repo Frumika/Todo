@@ -88,6 +88,7 @@ export class ProjectsContainer extends Component {
                     // console.log(project)
                 },
                 onSave: (id, text) => this.#handleSave(id, text),
+                onDelete: (id) => this.#handleDelete(id),
             });
 
             projectItem.rerender();
@@ -148,6 +149,27 @@ export class ProjectsContainer extends Component {
                 ? {...project, name: text}
                 : project
         );
+
+        this.updateList();
+    }
+
+    async #handleDelete(id) {
+        const response =
+            await ProjectApi.deleteProject(id);
+
+        if (!response.ok) {
+            console.log(response.data);
+            return;
+        }
+
+        this.props.projects =
+            this.props.projects.filter(
+                project => project.id !== id
+            );
+
+        if (this.props.selectedProjectId === id) {
+            this.props.selectedProjectId = null;
+        }
 
         this.updateList();
     }

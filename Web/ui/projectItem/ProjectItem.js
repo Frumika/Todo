@@ -9,16 +9,20 @@ export class ProjectItem extends Component {
         updatedAt: null,
         isSelected: false,
 
-        onClick: () => {},
-        onSave: (id, text) => {},
+        onClick: () => {
+        },
+        onSave: (id, text) => {
+        },
+        onDelete: (id) => {
+        },
 
         editIconSrc: "../../assets/check-black.svg",
         saveIconSrc: "../../assets/edit-black.svg",
+        deleteIconSrc: "../../assets/delete-black.svg"
     };
 
     state = {
-        isEditing: false,
-        text: "",
+        isEditing: false, text: "",
     };
 
     setProps(props) {
@@ -53,13 +57,22 @@ export class ProjectItem extends Component {
 
     #renderActionButton(textElement) {
         const button = new Button()
-            .setIcon(
-                this.state.isEditing ? this.props.editIconSrc : this.props.saveIconSrc
-            )
+            .setIcon(this.state.isEditing ? this.props.editIconSrc : this.props.saveIconSrc)
             .hasActiveBackground()
             .onClick((event) => this.#handleActionClick(event, textElement));
 
         const elem = button.render();
+        elem.classList.add("project-item__action-button");
+        return elem;
+    }
+
+    #renderDeleteButton() {
+        const deleteButton = new Button()
+            .setIcon(this.props.deleteIconSrc)
+            .hasActiveBackground()
+            .onClick(() => this.props.onDelete(this.props.id));
+
+        const elem = deleteButton.render();
         elem.classList.add("project-item__action-button");
         return elem;
     }
@@ -96,6 +109,10 @@ export class ProjectItem extends Component {
         content.append(textElement);
 
         item.append(content, this.#renderActionButton(textElement));
+
+        if (!this.state.isEditing) {
+            item.append(this.#renderDeleteButton());
+        }
 
         item.addEventListener("click", () => {
             if (!this.state.isEditing) {

@@ -29,7 +29,7 @@ export class ProjectApi {
 
     static async deleteProject(projectId) {
         return await HttpClient.delete(
-            `${BASE_URL}/update/${projectId}`,
+            `${BASE_URL}/delete/${projectId}`,
         );
     }
 }
